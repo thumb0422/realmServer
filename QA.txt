@@ -1,0 +1,6 @@
+包安装
+flask
+flask-restful
+flask-sqlalchemy
+mysqlclient
+pymysql
