@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from realmServer import app
+from main import app
 
 app.config.from_object('mysqlConfig')
 db = SQLAlchemy(app)
