@@ -2,5 +2,9 @@
 flask
 flask-restful
 flask-sqlalchemy
+sqlalchemy-migrate
 mysqlclient
 pymysql
+
+导出
+pip freeze > requirements.txt
