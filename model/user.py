@@ -1,9 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from main import app
-
-app.config.from_object('mysqlConfig')
-db = SQLAlchemy(app)
+from main import db
 
 class Teacher(db.Model):
     id = db.Column(db.Integer, primary_key=True)
