@@ -4,11 +4,12 @@ from datetime import datetime
 from main import db
 
 class orderMain(db.Model):
+    __tablename__ = 'OrderMain'
     orderId = db.Column(db.String(15), primary_key=True)
     amout = db.Column(db.Float(10,2))
     count = db.Column(db.Integer)
     # userCode =
-    states = db.Column(db.String(1))
+    states = db.Column(db.CHAR(1))
     createDate = db.Column(db.DateTime)
     updateDate = db.Column(db.DateTime)
     orderDetail = db.relationship('orderDetail',backref='orderMain',lazy='dynamic')
@@ -23,13 +24,14 @@ class orderMain(db.Model):
 
 
 class orderDetail(db.Model):
+    __tablename__ = 'OrderDetail'
     detailId = db.Column(db.Integer,primary_key=True)
     productCode = db.Column(db.String(15),unique=True)
     salePrice = db.Column(db.Float(10,2))
     count = db.Column(db.Integer)
     amount = db.Column(db.Float(10,2))
     orderId = db.Column(db.String(15),db.ForeignKey('orderMain.orderId'))
-    states = db.Column(db.String(1))
+    states = db.Column(db.CHAR(1))
     createDate = db.Column(db.DateTime)
     updateDate = db.Column(db.DateTime)
 

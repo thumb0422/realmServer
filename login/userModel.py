@@ -4,9 +4,10 @@ from datetime import datetime
 from main import db
 
 class user(db.Model):
+    __tablename__ = 'User'
     userCode = db.Column(db.String(10), primary_key=True)
-    userName = db.Column(db.String(250))
-    states = db.Column(db.String(1))
+    userName = db.Column(db.String(250),nullable=False)
+    states = db.Column(db.CHAR(1),nullable=False)
     createDate = db.Column(db.DateTime)
     updateDate = db.Column(db.DateTime)
     # groupCode = db.Column
@@ -21,9 +22,10 @@ class user(db.Model):
         return '<userCode %r,userName %r states %r>' % self.userCode,self.userName,self.states
 
 class group(db.Model):
+    __tablename__ = 'Group'
     groupCode = db.Column(db.String(10), primary_key=True)
     groupName = db.Column(db.String(250))
-    states = db.Column(db.String(1))
+    states = db.Column(db.CHAR(1))
     createDate = db.Column(db.DateTime)
     updateDate = db.Column(db.DateTime)
 
