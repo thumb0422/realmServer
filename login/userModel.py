@@ -3,14 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from main import db
 
-class user(db.Model):
-    __tablename__ = 'User'
+class User(db.Model):
+    __tablename__ = 'TM_User'
     userCode = db.Column(db.String(10), primary_key=True)
     userName = db.Column(db.String(250),nullable=False)
     states = db.Column(db.CHAR(1),nullable=False)
     createDate = db.Column(db.DateTime)
     updateDate = db.Column(db.DateTime)
-    # groupCode = db.Column
+    GroupCode = db.relationship('TM_Group',backref='TM_User',lazy='dynamic')
 
     def __init__(self,userCode,userName,states):
         self.userCode = userCode
@@ -21,13 +21,14 @@ class user(db.Model):
     def __repr__(self):
         return '<userCode %r,userName %r states %r>' % self.userCode,self.userName,self.states
 
-class group(db.Model):
-    __tablename__ = 'Group'
+class Group(db.Model):
+    __tablename__ = 'TM_Group'
     groupCode = db.Column(db.String(10), primary_key=True)
     groupName = db.Column(db.String(250))
     states = db.Column(db.CHAR(1))
     createDate = db.Column(db.DateTime)
     updateDate = db.Column(db.DateTime)
+    userCode = db.Column(db.String(10),db.ForeignKey('TM_User.userCode'))
 
     def __init__(self,groupCode,groupName,states):
         self.groupCode = groupCode
@@ -37,3 +38,6 @@ class group(db.Model):
 
     def __repr__(self):
         return '<groupCode %r,groupName %r states %r>' % self.groupCode,self.groupName,self.states
+
+
+# db.create_all()
