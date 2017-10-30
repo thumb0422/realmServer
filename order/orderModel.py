@@ -11,7 +11,6 @@ class OrderMain(db.Model):
     states = db.Column(db.CHAR(1))
     createDate = db.Column(db.DateTime)
     updateDate = db.Column(db.DateTime)
-    OrderDetail_orderId = db.relationship('TM_OrderDetail',backref='TM_OrderMain',lazy='dynamic')
 
     def __init__(self,orderId,states):
         self.orderId = orderId
@@ -29,10 +28,11 @@ class OrderDetail(db.Model):
     salePrice = db.Column(db.DECIMAL(10,2))
     count = db.Column(db.Integer)
     amount = db.Column(db.DECIMAL(10,2))
-    orderId = db.Column(db.String(15),db.ForeignKey('TM_OrderMain.orderId'))
     states = db.Column(db.CHAR(1))
     createDate = db.Column(db.DateTime)
     updateDate = db.Column(db.DateTime)
+    orderId = db.Column(db.String(15),db.ForeignKey('TM_OrderMain.orderId'))
+    orderMain = db.relationship('TM_OrderDetail',backref='TM_OrderMain',lazy='dynamic')
 
     def __init__(self,detailId,orderId,states):
         self.detailId = detailId
@@ -44,4 +44,4 @@ class OrderDetail(db.Model):
         return '<orderId %r,states %r>' %self.orderId,self.states
 
 
-# db.create_all()
+db.create_all()
