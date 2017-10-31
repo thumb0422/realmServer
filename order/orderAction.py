@@ -1,5 +1,6 @@
-from flask import Flask ,request
+from flask import Flask ,request,jsonify
 from flask_restful import reqparse,Api,abort,Resource
+from order.orderModel import OrderMain,OrderDetail
 from main import app
 
 parse = reqparse.RequestParser
@@ -8,13 +9,21 @@ parse = reqparse.RequestParser
 @app.route('queryOrderByOrderId/<string:orderId>',methods=['GET'])
 def queryOrderByOrderId(orderId):
     if request.method == 'GET':
-        return {'':''}
+        data = request.get_data()
+        dataDic = jsonify(data)
+        data1 = queryOrderMainByOrderId(orderId)
+        data2 = data1.OrderMain_Detail.all()
+        return jsonify({'status':'0',
+                        'data1':data1,
+                        'data2':data2})
 
 def queryOrderMainByOrderId(orderId):
-    return {'':''}
+    data = OrderMain(orderId=orderId)
+    return jsonify({'data1':data})
 
 def queryOrderDetailByOrderId(orderId):
-    return {'':''}
+    data = OrderDetail(orderId=orderId)
+    return jsonify({'data2':data})
 
 #POST
 @app.route('saveOrder',methods=['POST'])
