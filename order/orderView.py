@@ -1,9 +1,12 @@
 from flask import Flask ,request,jsonify,Blueprint
 from flask_restful import reqparse,Api,abort,Resource
-from .orderModel import OrderMain,OrderDetail
-from main import app
+from order.orderModel import OrderMain,OrderDetail
 
 order = Blueprint('order',__name__)
+
+# @order.route('/test')
+# def test11():
+#     return 'aaaa'
 
 #GET
 @order.route('/queryOrder/<string:orderId>',methods=['GET'])
@@ -26,21 +29,21 @@ def queryOrderDetailByOrderId(orderId):
     return jsonify({'data2':data})
 
 
-#POST
-@app.route('saveOrder',methods=['POST'])
-def saveOrder():
-    if request.method == 'POST':
-        return {'':''}
-
-def saveOrderMain():
-    args = parse.parse_args()
-    return {'':''}
-
-def saveOrderDetail():
-    return {'':''}
+# #POST
+# @order.route('saveOrder',methods=['POST'])
+# def saveOrder():
+#     if request.method == 'POST':
+#         return {'':''}
+#
+# def saveOrderMain():
+#     args = parse.parse_args()
+#     return {'':''}
+#
+# def saveOrderDetail():
+#     return {'':''}
 
 #DELETE byOrderId
-@app.route('deleteOrderByOrderId/<string:orderId>',methods=['DELETE'])
+@order.route('deleteOrderByOrderId/<string:orderId>',methods=['DELETE'])
 def deleteOrderByOrderId(orderId):
     if request.method == 'DELETE':
         return {'':''}

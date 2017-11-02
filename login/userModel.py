@@ -1,7 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from main import db
+
+db = SQLAlchemy()
 
 class User(db.Model):
     __tablename__ = 'TM_User'
@@ -38,6 +39,3 @@ class Group(db.Model):
 
     def __repr__(self):
         return '<groupCode %r,groupName %r states %r>' % self.groupCode,self.groupName,self.states
-
-
-# db.create_all()
