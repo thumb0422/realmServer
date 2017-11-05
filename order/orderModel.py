@@ -3,9 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 db = SQLAlchemy()
-app = Flask(__name__)
-app.config.from_object('mysqlConfig')
-db = SQLAlchemy(app)
 
 class OrderMain(db.Model):
     __tablename__ = 'TM_OrderMain'
@@ -67,4 +64,5 @@ class OrderDetail(db.Model):
 
     def __repr__(self):
         return "<OrderDetail('%s','%s, %s')>" % (self.orderId, self.states,self.orderId)
-db.create_all()
+
+# db.create_all()

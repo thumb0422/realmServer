@@ -4,21 +4,21 @@ from order.orderModel import OrderMain,OrderDetail
 
 order = Blueprint('order',__name__)
 
-# @order.route('/test')
-# def test11():
-#     return 'aaaa'
-
 #GET
 @order.route('/queryOrder/<string:orderId>',methods=['GET'])
+# @order.route('/queryOrder',methods=['GET'])
 def queryOrderByOrderId(orderId):
     if request.method == 'GET':
-        data = request.get_data()
-        dataDic = jsonify(data)
-        data1 = queryOrderMainByOrderId(orderId)
-        data2 = data1.OrderMain_Detail.all()
-        return jsonify({'status':'0',
-                        'data1':data1,
-                        'data2':data2})
+        # data = request.get_data()
+        # dataDic = jsonify(data)
+        # data1 = queryOrderMainByOrderId(orderId)
+        # data2 = data1.OrderMain_Detail.all()
+        # return jsonify({'status':'0',
+        #                 'data1':data1,
+        #                 'data2':data2})
+        ordermains = OrderMain.query.get(1)
+        return jsonify({'data1':ordermains})
+
 
 def  queryOrderMainByOrderId(orderId):
     data = OrderMain(orderId=orderId)
