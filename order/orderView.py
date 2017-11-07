@@ -1,3 +1,4 @@
+#-*- coding: UTF-8 -*-
 from flask import Flask ,request,jsonify,Blueprint
 from flask_restful import reqparse,Api,abort,Resource
 from order.orderModel import OrderMain,OrderDetail
