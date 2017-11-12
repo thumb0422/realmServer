@@ -1,5 +1,5 @@
 #-*- coding: UTF-8 -*-
-from .. import db
+from app import db
 from datetime import datetime
 
 class OrderMain(db.Model):
@@ -12,23 +12,30 @@ class OrderMain(db.Model):
     createDate = db.Column(db.DateTime,default=datetime.now())
     updateDate = db.Column(db.DateTime,default=datetime.now())
 
-    def __init__(self,orderId,amount,count,states,updateDate):
-        self.orderId = orderId
-        if amount is None:
-            amount = 0.00
-        self.amount = amount
-        if count is None:
-            count = 0
-        self.count = count
-        if states is None:
-            states = 'Y'
-        self.states = states
-        self.createDate = datetime.now()
-        if updateDate is None:
-            updateDate = datetime.now()
+    def __init__(self,**kwargs):
+        self.updateDate =  datetime.now()
 
     def __repr__(self):
         return "<OrderMain('%s','%s')>" % (self.orderId,self.states)
+
+    @classmethod
+    def getOrderMains(cls):
+        ordermains = db.session.query(OrderMain).all()
+        return ordermains
+
+    @classmethod
+    def getOrderMainsById(cls,orderId):
+        ordermain = db.session.query(OrderMain).filter(OrderMain.orderId == orderId).first()
+        return ordermain
+
+    @classmethod
+    def getOrderMainsByExpression(cls,expression):
+        ordermains = db.session.query(OrderMain).filter(eval(expression)).first()
+        return ordermains
+
+    @staticmethod
+    def saveOrderMain(self,**kwargs):
+        return ""
 
 class OrderDetail(db.Model):
     __tablename__ = 'TM_OrderDetail'
@@ -53,3 +60,22 @@ class OrderDetail(db.Model):
 
     def __repr__(self):
         return "<OrderDetail('%s','%s, %s')>" % (self.orderId, self.states,self.orderId)
+
+    @classmethod
+    def getOrderdetails(cls):
+        orderdetails = db.session.query(OrderDetail).all()
+        return orderdetails
+
+    @classmethod
+    def getOrderMainsById(cls, orderId):
+        orderdetails = db.session.query(OrderDetail).filter(OrderMain.orderId == orderId).first()
+        return orderdetails
+
+    @classmethod
+    def getOrderMainsByExpression(cls, expression):
+        orderdetails = db.session.query(OrderDetail).filter(eval(expression)).first()
+        return orderdetails
+
+    @staticmethod
+    def saveOrderDetails(self,**kwargs):
+        return ""

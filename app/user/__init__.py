@@ -1,4 +1,4 @@
 #-*- coding: UTF-8 -*-
 '''
- utility
+用户相关信息
 '''

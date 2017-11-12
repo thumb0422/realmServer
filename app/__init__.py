@@ -9,7 +9,6 @@ from config import config
 
 db = SQLAlchemy()
 
-
 def create_app(config_name):
     """
     binding extensions to app

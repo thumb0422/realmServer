@@ -1,11 +1,12 @@
 #-*- coding: UTF-8 -*-
-from .. import db
+# from .. import db
+from app import db
 from datetime import datetime
 
 class User(db.Model):
     __tablename__ = 'TM_User'
     __table_args__ = {'extend_existing': True}
-    userCode = db.Column(db.String(10), primary_key=True)
+    userId = db.Column(db.Integer,primary_key=True,autoincrement=True)
     userName = db.Column(db.String(250),nullable=False)
     states = db.Column(db.CHAR(1),nullable=False)
     createDate = db.Column(db.DateTime,default=datetime.now())
@@ -21,6 +22,25 @@ class User(db.Model):
     def __repr__(self):
         return '<userCode %r,userName %r states %r>' % self.userCode,self.userName,self.states
 
+    @classmethod
+    def getOrderMains(cls):
+        users = db.session.query(User).all()
+        return users
+
+    @classmethod
+    def getOrderMainsById(cls, userCode):
+        user = db.session.query(User).filter(User.orderId == userCode).first()
+        return user
+
+    @classmethod
+    def getOrderMainsByExpression(cls, expression):
+        users = db.session.query(User).filter(eval(expression)).first()
+        return users
+
+    @staticmethod
+    def saveUser(self, **kwargs):
+        return ""
+
 class Group(db.Model):
     __tablename__ = 'TM_Group'
     __table_args__ = {'extend_existing': True}
@@ -31,11 +51,11 @@ class Group(db.Model):
     updateDate = db.Column(db.DateTime,default=datetime.now())
     userCode = db.Column(db.String(10),db.ForeignKey('TM_User.userCode'))
 
-    def __init__(self,**args):
-        if (len(args) > 2):
+    def __init__(self,**kwargs):
+        if (len(kwargs) > 2):
             print("wrong args number")
             return
-        self.__dict__.update(args)
+        self.__dict__.update(kwargs)
 
     def __repr__(self):
         return '<groupCode %r,groupName %r states %r>' % self.groupCode,self.groupName,self.states

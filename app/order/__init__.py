@@ -1,4 +1,4 @@
 #-*- coding: UTF-8 -*-
 '''
- utility
+订单相关信息
 '''

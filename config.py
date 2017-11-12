@@ -10,8 +10,6 @@ class Config:
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_ECHO = True
     JSON_AS_ASCII = False
-    # SQLALCHEMY_POOL_SIZE = 10
-    # SQLALCHEMY_POOL_TIMEOUT = 15
     SQLALCHEMY_POOL_RECYCLE = 2
     SECRET_KEY = '0okmnji9'
 
@@ -19,6 +17,8 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///./data.db'
 
 class ProductionConfig(Config):
+    SQLALCHEMY_POOL_SIZE = 10
+    SQLALCHEMY_POOL_TIMEOUT = 15
     SQLALCHEMY_DATABASE_URI = 'mysql://root:1qazxsw2@127.0.0.1:3306/realm'
 
 config = {
