@@ -27,14 +27,10 @@ def create_app(config_name):
         # from .init_seed import init_DB_data
         # init_DB_data(db)
 
-    # bootstrap.init_app(app)
-    # login_manager.init_app(app)
+    from .order import order as order_blueprint
+    app.register_blueprint(order_blueprint)
 
-    # from .main import main as main_blueprint
-    # app.register_blueprint(main_blueprint)
-    #
-    # from .admin import views
-    # from .admin import admin as admin_blueprint
-    # app.register_blueprint(admin_blueprint, url_prefix='/admin')
+    from .user import user as user_blueprint
+    app.register_blueprint(user_blueprint)
 
     return app
