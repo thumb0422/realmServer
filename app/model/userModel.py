@@ -11,7 +11,7 @@ class User(db.Model):
     states = db.Column(db.CHAR(1),nullable=False)
     createDate = db.Column(db.DateTime,default=datetime.now())
     updateDate = db.Column(db.DateTime,default=datetime.now())
-    GroupCode = db.relationship('TM_Group',backref='TM_User',lazy='dynamic')
+    # GroupCode = db.relationship('TM_Group',backref='TM_User',lazy='dynamic')
 
     def __init__(self,**args):
         if (len(args) > 2):
@@ -49,7 +49,7 @@ class Group(db.Model):
     states = db.Column(db.CHAR(1))
     createDate = db.Column(db.DateTime,default=datetime.now())
     updateDate = db.Column(db.DateTime,default=datetime.now())
-    userCode = db.Column(db.String(10),db.ForeignKey('TM_User.userCode'))
+    userId = db.Column(db.String(10),db.ForeignKey('TM_User.userId'))
 
     def __init__(self,**kwargs):
         if (len(kwargs) > 2):

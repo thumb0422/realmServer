@@ -8,3 +8,13 @@ pymysql
 
 导出
 pip freeze > requirements.txt
+
+
+
+
+python manage.py db init
+python manage.py db migrate -m "first init db"
+python manage.py db upgrade
+'''
+单项目内只需要第一次执行db init，如果你在未来的日子里需要修改models.py并使其生效，只需要在改过models.py后执行指令的后面2步即可。
+'''
