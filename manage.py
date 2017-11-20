@@ -1,9 +1,9 @@
 # -*- coding=utf-8 -*-
-from app import create_app, db
-from app.model.orderModel import OrderMain,OrderDetail
-from app.model.userModel import User,Group
+from realmApp import create_app, db
+from realmApp.model.orderModel import OrderMain,OrderDetail
+from realmApp.model.userModel import User,Group
 
-from flask.ext.script import Manager, Shell
+from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 
 app = create_app('development')

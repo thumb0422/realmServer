@@ -1,6 +1,6 @@
 #-*- coding: UTF-8 -*-
 # from .. import db
-from app import db
+from realmApp import db
 from datetime import datetime
 
 class User(db.Model):

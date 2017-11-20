@@ -3,7 +3,7 @@ from flask_script import Manager, Shell
 from flask import render_template, redirect, url_for, flash,session
 from datetime import timedelta, datetime
 
-from app import create_app, db
+from realmApp import create_app, db
 
 app = create_app('default')
 app.debug = True

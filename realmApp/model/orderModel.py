@@ -1,5 +1,5 @@
 #-*- coding: UTF-8 -*-
-from app import db
+from realmApp import db
 from datetime import datetime
 
 class OrderMain(db.Model):

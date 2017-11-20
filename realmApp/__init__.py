@@ -25,26 +25,26 @@ def create_app(config_name):
 
 # def create_app(config_name):
 #     """
-#     binding extensions to app
+#     binding extensions to realmApp
 #     regist blue prients
 #     """
-#     app = Flask(__name__, template_folder='templates')
-#     app.config.from_object(config[config_name])
-#     # config[config_name].init_app(app)
+#     realmApp = Flask(__name__, template_folder='templates')
+#     realmApp.config.from_object(config[config_name])
+#     # config[config_name].init_app(realmApp)
 #
-#     db.init_app(app)
-#     with app.app_context():
+#     db.init_app(realmApp)
+#     with realmApp.app_context():
 #         db.create_all()
-#         # Extensions like Flask-SQLAlchemy now know what the "current" app
+#         # Extensions like Flask-SQLAlchemy now know what the "current" realmApp
 #         # is while within this block. Therefore, you can now run........
 #
 #         # from .init_seed import init_DB_data
 #         # init_DB_data(db)
 #
 #     from .order import order as order_blueprint
-#     app.register_blueprint(order_blueprint)
+#     realmApp.register_blueprint(order_blueprint)
 #
 #     from .user import user as user_blueprint
-#     app.register_blueprint(user_blueprint)
+#     realmApp.register_blueprint(user_blueprint)
 #
-#     return app
+#     return realmApp

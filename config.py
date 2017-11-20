@@ -18,11 +18,12 @@ class Config:
     @staticmethod
     def init_app(app):
         _handler = RotatingFileHandler(
-            'app.log', maxBytes=10000, backupCount=1)
+            'log.log', maxBytes=10000, backupCount=1)
         _handler.setLevel(logging.WARNING)
         app.logger.addHandler(_handler)
 
 class DevelopmentConfig(Config):
+    debug = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///./data.db'
 
 class ProductionConfig(Config):
