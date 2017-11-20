@@ -21,4 +21,7 @@ def create_app(config_name):
     from .order import order as order_blueprint
     app.register_blueprint(order_blueprint,url_prefix='/order')
 
+    from .user import user as user_blueprint
+    app.register_blueprint(user_blueprint, url_prefix='/user')
+
     return app
