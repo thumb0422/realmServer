@@ -49,7 +49,7 @@ class Group(db.Model):
     states = db.Column(db.CHAR(1))
     createDate = db.Column(db.DateTime,default=datetime.now())
     updateDate = db.Column(db.DateTime,default=datetime.now())
-    userId = db.Column(db.String(10),db.ForeignKey('TM_User.userId'))
+    userId = db.Column(db.Integer,db.ForeignKey('TM_User.userId'))
 
     def __init__(self,**kwargs):
         if (len(kwargs) > 2):

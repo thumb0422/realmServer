@@ -24,7 +24,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     debug = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///./data.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///./realm.sqlite3'
 
 class ProductionConfig(Config):
     SQLALCHEMY_POOL_SIZE = 10
