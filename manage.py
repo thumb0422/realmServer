@@ -6,7 +6,7 @@ from realmApp.model.userModel import User,Group
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 
-app = create_app('development')
+app = create_app('mysql')
 manager = Manager(app)
 migrate = Migrate(app,db)
 

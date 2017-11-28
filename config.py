@@ -26,12 +26,12 @@ class DevelopmentConfig(Config):
     debug = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///./realm.sqlite3'
 
-class ProductionConfig(Config):
+class MySQLConfig(Config):
     SQLALCHEMY_POOL_SIZE = 10
     SQLALCHEMY_POOL_TIMEOUT = 15
     SQLALCHEMY_DATABASE_URI = 'mysql://root:1qazxsw2@127.0.0.1:3306/realm'
 
 config = {
     'development': DevelopmentConfig,
-    'production':ProductionConfig
+    'mysql':MySQLConfig
 }
