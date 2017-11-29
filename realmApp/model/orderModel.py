@@ -1,6 +1,8 @@
 #-*- coding: UTF-8 -*-
+from flask import jsonify
 from realmApp import db
 from datetime import datetime
+from ..utility import *
 
 class OrderMain(db.Model):
     __tablename__ = 'TM_OrderMain'
@@ -18,20 +20,31 @@ class OrderMain(db.Model):
     def __repr__(self):
         return "<OrderMain('%s','%s')>" % (self.orderId,self.states)
 
+    @property
+    def serialize(self):
+        """Return object data in easily serializeable format"""
+        return {
+            'orderId': self.orderId,
+            'amount' : str(self.amount),
+            'count'  : str(self.count),
+            'states' : self.states,
+            'createDate':dump_datetime(self.createDate),
+        }
+
     @classmethod
     def getOrderMains(cls):
-        ordermains = db.session.query(OrderMain).all()
-        return ordermains
+        ordersResult = OrderMain.query.all()
+        return jsonify(status = '0',datas=[i.serialize for i in ordersResult])
 
     @classmethod
     def getOrderMainsById(cls,orderId):
-        ordermain = db.session.query(OrderMain).filter(OrderMain.orderId == orderId).first()
-        return ordermain
+        ordersResult = OrderMain.query.all().filter(OrderMain.orderId == orderId).first()
+        return jsonify(status = '0',datas=[i.serialize for i in ordersResult])
 
     @classmethod
     def getOrderMainsByExpression(cls,expression):
-        ordermains = db.session.query(OrderMain).filter(eval(expression)).first()
-        return ordermains
+        ordersResult = OrderMain.query.all().filter(eval(expression)).first()
+        return jsonify(status='0', datas=[i.serialize for i in ordersResult])
 
     @staticmethod
     def saveOrderMain(self,**kwargs):

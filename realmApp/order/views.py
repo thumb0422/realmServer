@@ -9,16 +9,16 @@ def index():
 
 @order.route('/getOrder')
 def getOrder():
-    return jsonify({'order':'AAAA'})
+    return OrderMain.getOrderMains()
 
 @order.route('/addOrder')
 def addOrder():
     ordermain = OrderMain()
-    ordermain.orderId = 'AAAAAAA1'
+    ordermain.orderId = 'AAAAAAA3'
     ordermain.states = 'Y'
     ordermain.amount = 100
     ordermain.count = 5
     db.session.add(ordermain)
     db.session.flush()
     db.session.commit()
-    return 'AAAAAAA1'
+    return jsonify({'status':'0'})
