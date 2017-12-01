@@ -1,6 +1,7 @@
 # -*- coding=utf-8 -*-
 from flask import jsonify
 from . import order
+from random import random, randint
 from ..model.orderModel import *
 
 @order.route('/')
@@ -14,11 +15,15 @@ def getOrder():
 @order.route('/addOrder')
 def addOrder():
     ordermain = OrderMain()
-    ordermain.orderId = 'AAAAAAA3'
+    ordermain.orderId = 'AAAAAAA' + str(randint(10,100))
     ordermain.states = 'Y'
     ordermain.amount = 100
     ordermain.count = 5
     db.session.add(ordermain)
-    db.session.flush()
-    db.session.commit()
-    return jsonify({'status':'0'})
+    try:
+        db.session.flush()
+        db.session.commit()
+        return jsonify({'status': '0'})
+    except:
+        db.session.rollback()
+        return jsonify({'status': '-1'})

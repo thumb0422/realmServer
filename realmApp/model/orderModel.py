@@ -1,5 +1,6 @@
 #-*- coding: UTF-8 -*-
 from flask import jsonify
+from sqlalchemy import func,select
 from realmApp import db
 from datetime import datetime
 from ..utility import *
@@ -34,6 +35,9 @@ class OrderMain(db.Model):
     @classmethod
     def getOrderMains(cls):
         ordersResult = OrderMain.query.all()
+        #TODO:
+        # orderCount = select([func.count("*")],from_obj=[ordersResult])
+        # orderCount = ordersResult.rowcount
         return jsonify(status = '0',datas=[i.serialize for i in ordersResult])
 
     @classmethod
