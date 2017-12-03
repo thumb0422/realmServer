@@ -1,9 +1,11 @@
 #-*- coding: UTF-8 -*-
-from flask import jsonify
+from flask import jsonify,request
 from sqlalchemy import func,select
 from realmApp import db
 from datetime import datetime
 from ..utility import *
+
+tableOrderKey = 'O'
 
 class OrderMain(db.Model):
     __tablename__ = 'TM_OrderMain'
@@ -16,6 +18,7 @@ class OrderMain(db.Model):
     updateDate = db.Column(db.DateTime,default=datetime.now())
 
     def __init__(self,**kwargs):
+        self.orderId = tableOrderKey + random_str(12).upper()
         self.updateDate =  datetime.now()
 
     def __repr__(self):
@@ -31,6 +34,11 @@ class OrderMain(db.Model):
             'states' : self.states,
             'createDate':dump_datetime(self.createDate),
         }
+
+    @classmethod
+    def getOrderMainMaxOrder(cls):
+        maxOrder = OrderMain.query.order_by((OrderMain.orderId.desc())).first()
+        return maxOrder.orderId
 
     @classmethod
     def getOrderMains(cls):
