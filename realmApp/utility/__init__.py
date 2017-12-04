@@ -22,3 +22,10 @@ def random_str(randomLength = 12):
     for i in range(randomLength):
         str += chars[random.randint(0, length)]
     return str
+
+def getModelKey(keyPrefix):
+    import datetime
+    localTimeStr = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
+    localTime = localTimeStr.replace('-', '').replace(':', '').replace('.', '').replace(' ', '')
+    result = keyPrefix + localTime + random_str(4).upper()
+    return result

@@ -18,7 +18,7 @@ class OrderMain(db.Model):
     updateDate = db.Column(db.DateTime,default=datetime.now())
 
     def __init__(self,**kwargs):
-        self.orderId = tableOrderKey + random_str(12).upper()
+        self.orderId = getModelKey(tableOrderKey)
         self.updateDate =  datetime.now()
 
     def __repr__(self):
