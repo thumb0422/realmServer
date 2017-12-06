@@ -29,7 +29,7 @@ class OrderMain(db.Model):
         """Return object data in easily serializeable format"""
         return {
             'orderId': self.orderId,
-            'sumCount': str(self.sumCount),
+            'sumCount': self.sumCount,
             'sumAmount' : str(self.sumAmount),
             'states' : self.states,
             'createDate':dump_datetime(self.createDate),
@@ -63,7 +63,7 @@ class OrderMain(db.Model):
             if key == 'sumAmount':
                 orderMain.sumAmount = kwargs[key]
             elif key == 'sumCount':
-                orderMain.sumCount == int(kwargs[key])
+                orderMain.sumCount == kwargs[key]
             elif key == 'states':
                 orderMain.states = kwargs[key]
             else:
