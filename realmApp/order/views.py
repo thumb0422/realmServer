@@ -21,8 +21,8 @@ def getOrder():
 def addOrder():
     ordermain = OrderMain()
     ordermain.states = 'Y'
-    ordermain.amount = 100
-    ordermain.count = 5
+    ordermain.sumAmount = 100
+    ordermain.sumCount = 5
     db.session.add(ordermain)
     try:
         db.session.flush()

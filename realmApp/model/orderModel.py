@@ -10,9 +10,9 @@ tableOrderKey = 'O'
 class OrderMain(db.Model):
     __tablename__ = 'TM_OrderMain'
     __table_args__ = {'extend_existing': True}
-    orderId = db.Column(db.String(15), primary_key=True)
-    amount = db.Column(db.DECIMAL(10,2))
-    count = db.Column(db.Integer)
+    orderId = db.Column(db.String(30), primary_key=True)
+    sumAmount = db.Column(db.DECIMAL(10,2))
+    sumCount = db.Column(db.Integer)
     states = db.Column(db.CHAR(1))
     createDate = db.Column(db.DateTime,default=datetime.now())
     updateDate = db.Column(db.DateTime,default=datetime.now())
@@ -29,8 +29,8 @@ class OrderMain(db.Model):
         """Return object data in easily serializeable format"""
         return {
             'orderId': self.orderId,
-            'amount' : str(self.amount),
-            'count'  : str(self.count),
+            'sumCount': str(self.sumCount),
+            'sumAmount' : str(self.sumAmount),
             'states' : self.states,
             'createDate':dump_datetime(self.createDate),
         }
@@ -43,9 +43,6 @@ class OrderMain(db.Model):
     @classmethod
     def getOrderMains(cls):
         ordersResult = OrderMain.query.all()
-        #TODO:
-        # orderCount = select([func.count("*")],from_obj=[ordersResult])
-        # orderCount = ordersResult.rowcount
         return jsonify(status = '0',datas=[i.serialize for i in ordersResult])
 
     @classmethod
@@ -63,12 +60,14 @@ class OrderMain(db.Model):
         orderMain = OrderMain()
         for key in kwargs:
             print('key is :%s,value is :%s' % (key, kwargs[key]))
-            if key == 'amount':
-                orderMain.amount = kwargs[key]
+            if key == 'sumAmount':
+                orderMain.sumAmount = kwargs[key]
+            elif key == 'sumCount':
+                orderMain.sumCount == int(kwargs[key])
             elif key == 'states':
                 orderMain.states = kwargs[key]
-            elif key == 'count':
-                orderMain.count == kwargs[key]
+            else:
+                break
 
         db.session.add(orderMain)
         try:
@@ -77,7 +76,7 @@ class OrderMain(db.Model):
             return jsonify({'status':'0','message':'保存成功','keyId':orderMain.orderId})
         except:
             db.session.rollback()
-            return jsonify({'status': '-1','message':'保存成功'})
+            return jsonify({'status': '-1','message':'保存失败'})
 
 class OrderDetail(db.Model):
     __tablename__ = 'TM_OrderDetail'
@@ -91,7 +90,7 @@ class OrderDetail(db.Model):
     createDate = db.Column(db.DateTime,default=datetime.now())
     updateDate = db.Column(db.DateTime,default=datetime.now())
     # 用于外键的字段
-    orderId = db.Column(db.String(15),db.ForeignKey('TM_OrderMain.orderId'))
+    orderId = db.Column(db.String(30),db.ForeignKey('TM_OrderMain.orderId'))
     # 外键对象，不会生成数据库实际字段
     # backref指反向引用，也就是外键Category通过backref(OrderMain_Detail)查询Post
     # orderMain = db.relationship('orderDetail',backref=db.backref('orderDetail',lazy='dynamic'))
