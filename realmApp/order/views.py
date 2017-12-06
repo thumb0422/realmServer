@@ -3,6 +3,7 @@ from flask import jsonify,request,make_response,abort
 from . import order
 from random import random, randint
 from ..model.orderModel import *
+import json
 
 @order.errorhandler(404)
 def not_found(error):
@@ -26,14 +27,18 @@ def addOrder():
     try:
         db.session.flush()
         db.session.commit()
-        return jsonify({'status': '0'})
+        return jsonify({'status': '0','message':'保存成功'})
     except:
         db.session.rollback()
         return jsonify({'status': '-1'})
 
 @order.route('/saveOrder',methods = ['POST','GET'])
 def saveOrder():
-    if not request.json or not 'amount' in request.json:
-        abort(400)
-    print('----------')
-    return ""
+    if not request.json :
+        return jsonify({'status':-1,'message':'非json格式'})
+    requestStr = json.dumps(request.json)
+    requestDic = eval(requestStr)
+    result = OrderMain.saveOrderMain(**requestDic)
+    return result
+
+

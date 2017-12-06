@@ -58,9 +58,26 @@ class OrderMain(db.Model):
         ordersResult = OrderMain.query.all().filter(eval(expression)).first()
         return jsonify(status='0', datas=[i.serialize for i in ordersResult])
 
-    @staticmethod
-    def saveOrderMain(self,**kwargs):
-        return ""
+    @classmethod
+    def saveOrderMain(cls,**kwargs):
+        orderMain = OrderMain()
+        for key in kwargs:
+            print('key is :%s,value is :%s' % (key, kwargs[key]))
+            if key == 'amount':
+                orderMain.amount = kwargs[key]
+            elif key == 'states':
+                orderMain.states = kwargs[key]
+            elif key == 'count':
+                orderMain.count == kwargs[key]
+
+        db.session.add(orderMain)
+        try:
+            db.session.flush()
+            db.session.commit()
+            return jsonify({'status':'0','message':'保存成功','keyId':orderMain.orderId})
+        except:
+            db.session.rollback()
+            return jsonify({'status': '-1','message':'保存成功'})
 
 class OrderDetail(db.Model):
     __tablename__ = 'TM_OrderDetail'
