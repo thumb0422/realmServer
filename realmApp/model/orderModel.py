@@ -19,7 +19,6 @@ class OrderMain(db.Model):
 
     def __init__(self,**kwargs):
         self.orderId = getModelKey(tableOrderKey)
-        self.updateDate =  datetime.now()
 
     def __repr__(self):
         return "<OrderMain('%s','%s')>" % (self.orderId,self.states)
@@ -30,8 +29,8 @@ class OrderMain(db.Model):
         return {
             'orderId': self.orderId,
             'sumCount': self.sumCount,
-            'sumAmount' : str(self.sumAmount),
-            'states' : self.states,
+            'sumAmount': str(self.sumAmount),
+            'states': self.states,
             'createDate':dump_datetime(self.createDate),
         }
 
@@ -63,7 +62,7 @@ class OrderMain(db.Model):
             if key == 'sumAmount':
                 orderMain.sumAmount = kwargs[key]
             elif key == 'sumCount':
-                orderMain.sumCount == kwargs[key]
+                orderMain.sumCount = kwargs[key]
             elif key == 'states':
                 orderMain.states = kwargs[key]
             else:
