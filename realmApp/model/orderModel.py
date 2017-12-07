@@ -46,7 +46,7 @@ class OrderMain(db.Model):
 
     @classmethod
     def getOrderMainsById(cls,orderId):
-        ordersResult = OrderMain.query.all().filter(OrderMain.orderId == orderId).first()
+        ordersResult = OrderMain.query.filter_by(orderId = orderId).all()
         return jsonify(status = '0',datas=[i.serialize for i in ordersResult])
 
     @classmethod

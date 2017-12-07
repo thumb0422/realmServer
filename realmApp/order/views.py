@@ -13,9 +13,14 @@ def not_found(error):
 def index():
     return 'Hello World I am order'
 
-@order.route('/getOrder')
+@order.route('/getOrder',methods = ['POST'])
 def getOrder():
-    return OrderMain.getOrderMains()
+    if request.json is not None:
+        orderId = request.json['orderId']
+        if orderId is None:
+            return OrderMain.getOrderMains()
+    return OrderMain.getOrderMainsById(orderId)
+
 
 @order.route('/addOrder')
 def addOrder():
