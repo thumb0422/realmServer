@@ -29,7 +29,7 @@ class DevelopmentConfig(Config):
 class MySQLConfig(Config):
     SQLALCHEMY_POOL_SIZE = 10
     SQLALCHEMY_POOL_TIMEOUT = 15
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:1qazxsw2@127.0.0.1:3306/realm'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:1qazxsw2@localhost:3306/realm?charset=utf8'
 
 config = {
     'development': DevelopmentConfig,
