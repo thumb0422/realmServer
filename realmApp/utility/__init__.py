@@ -3,6 +3,7 @@
  utility
 '''
 from random import Random
+import json
 
 def dump_datetime(value):
     """Deserialize datetime object into string form for JSON processing."""
@@ -25,3 +26,8 @@ def getModelKey(keyPrefix):
     localTime = localTimeStr.replace('-', '').replace(':', '').replace('.', '').replace(' ', '')
     result = keyPrefix + localTime + random_str(4).upper()
     return result
+
+def converJsonToDic(jsonValue):
+    jsonStr = json.dumps(jsonValue)
+    dic = eval(jsonStr)
+    return dic

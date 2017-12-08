@@ -16,8 +16,12 @@ def index():
 @order.route('/getOrder',methods = ['POST'])
 def getOrder():
     if request.json is not None:
-        orderId = request.json['orderId']
-        if orderId is None:
+        jsonDic = converJsonToDic(request.json)
+        if 'orderId' in jsonDic.keys():
+            orderId = jsonDic('orderId')
+            if orderId is None:
+                return OrderMain.getOrderMains()
+        else:
             return OrderMain.getOrderMains()
     return OrderMain.getOrderMainsById(orderId)
 

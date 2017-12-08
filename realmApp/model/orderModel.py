@@ -30,7 +30,7 @@ class OrderMain(db.Model):
             'orderId': self.orderId,
             'sumCount': self.sumCount,
             'sumAmount': str(self.sumAmount),
-            'states': self.states,
+            'states': self.states if self.states is not None else "",
             'createDate':dump_datetime(self.createDate),
         }
 
