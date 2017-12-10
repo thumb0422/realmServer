@@ -13,6 +13,7 @@ def not_found(error):
 def index():
     return 'Hello World I am order'
 
+
 @order.route('/getOrder',methods = ['POST'])
 def getOrder():
     if request.json is not None:
@@ -21,9 +22,10 @@ def getOrder():
             orderId = jsonDic('orderId')
             if orderId is None:
                 return OrderMain.getOrderMains()
+            return OrderMain.getOrderMainsById(orderId)
         else:
             return OrderMain.getOrderMains()
-    return OrderMain.getOrderMainsById(orderId)
+    return jsonify({'status': -1, 'message': '非json格式'})
 
 
 @order.route('/addOrder')
