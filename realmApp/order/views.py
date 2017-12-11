@@ -19,7 +19,7 @@ def getOrder():
     if request.json is not None:
         jsonDic = converJsonToDic(request.json)
         if 'orderId' in jsonDic.keys():
-            orderId = jsonDic('orderId')
+            orderId = jsonDic['orderId']
             if orderId is None:
                 return OrderMain.getOrderMains()
             return OrderMain.getOrderMainsById(orderId)

@@ -5,7 +5,7 @@ from realmApp import db
 from datetime import datetime
 from ..utility import *
 
-tableOrderKey = 'O'
+tableOrderKey = 'OD'
 
 class OrderMain(db.Model):
     __tablename__ = 'TM_OrderMain'
@@ -13,11 +13,11 @@ class OrderMain(db.Model):
     orderId = db.Column(db.String(30), primary_key=True)
     sumAmount = db.Column(db.DECIMAL(10,2))
     sumCount = db.Column(db.Integer)
-    states = db.Column(db.CHAR(1))
+    states = db.Column(db.CHAR(1),default='Y')
     createDate = db.Column(db.DateTime,default=datetime.now())
     updateDate = db.Column(db.DateTime,default=datetime.now())
 
-    def __init__(self,**kwargs):
+    def __init__(self):
         self.orderId = getModelKey(tableOrderKey)
 
     def __repr__(self):
@@ -63,8 +63,6 @@ class OrderMain(db.Model):
                 orderMain.sumAmount = kwargs[key]
             elif key == 'sumCount':
                 orderMain.sumCount = kwargs[key]
-            elif key == 'states':
-                orderMain.states = kwargs[key]
             else:
                 break
 
