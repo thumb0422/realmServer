@@ -62,6 +62,23 @@ class User(db.Model):
             return jsonify({'status': '-1', 'message': '保存失败'})
 
     @classmethod
+    def updateUser(cls,**kwargs):
+        userCode = kwargs['userCode']
+        user = User.query.filter_by(userCode=userCode).first()
+        user.userName = kwargs['userName']
+        user.userPwd = kwargs['userPwd']
+        user.states = 'Y'
+        user.updateDate = datetime.datetime.now()
+        db.session.add(user)
+        try:
+            db.session.flush()
+            db.session.commit()
+            return jsonify({'status': '0', 'message': '更新成功', 'keyId': user.userCode})
+        except:
+            db.session.rollback()
+            return jsonify({'status': '-1', 'message': '更新失败'})
+
+    @classmethod
     def login(cls, userCode, userPwd, **kwargs):
         user = User
         user.userCode = userCode

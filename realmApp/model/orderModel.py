@@ -68,7 +68,6 @@ class OrderMain(db.Model):
                 orderMain.sumCount = kwargs[key]
             else:
                 break
-
         db.session.add(orderMain)
         try:
             db.session.flush()
@@ -77,6 +76,13 @@ class OrderMain(db.Model):
         except:
             db.session.rollback()
             return jsonify({'status': '-1','message':'保存失败'})
+
+    @classmethod
+    def updateOrderMain(cls,**kwargs):
+        orderId = kwargs['orderId']
+        orders = OrderMain.query.filter_by(orderId=orderId).all()
+
+        return ''
 
 class OrderDetail(db.Model):
     __tablename__ = 'TM_OrderDetail'

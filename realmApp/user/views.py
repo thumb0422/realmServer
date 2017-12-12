@@ -32,12 +32,32 @@ def register():
     result = User.saveUsers(**requestDic)
     return result
 
+@user.route('/updateregister',methods = ['POST'])
+def updateregister():
+    '''
+    更新用户状态
+    :return:
+    '''
+    if not request.json :
+        return jsonify({'status':-1,'message':'非json格式'})
+    requestStr = json.dumps(request.json)
+    requestDic = eval(requestStr)
+    result = User.updateUser(**requestDic)
+    return result
+
 @user.route('/login',methods = ['POST'])
 def login():
     '''
     用户登录
     :return:
     '''
+    '''
+    parser = reqparse.RequestParser()
+    parser.add_argument('userCode', type=str, help='XXXXXX')
+    parser.add_argument('userPwd', type=str)
+    args = parser.parse_args()
+    '''
+
     if not request.json :
         return jsonify({'status':-1,'message':'非json格式'})
     requestStr = json.dumps(request.json)
