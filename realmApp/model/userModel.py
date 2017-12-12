@@ -1,8 +1,8 @@
 #-*- coding: UTF-8 -*-
 from flask import jsonify,session
 from realmApp import db
-from datetime import datetime
 from ..utility import *
+import datetime
 
 tableOrderKey = 'UR'
 class User(db.Model):
@@ -12,14 +12,17 @@ class User(db.Model):
     userCode = db.Column(db.String(30),nullable=False)
     userPwd = db.Column(db.String(200), nullable=False)
     userName = db.Column(db.String(250),nullable=False)
-    states = db.Column(db.CHAR(1),nullable=False,default='Y')
-    createDate = db.Column(db.DateTime,default=datetime.now())
-    updateDate = db.Column(db.DateTime,default=datetime.now())
+    states = db.Column(db.CHAR(1),nullable=False)
+    createDate = db.Column(db.DateTime)
+    updateDate = db.Column(db.DateTime)
     # 用于外键的字段
     groupId = db.Column(db.Integer, db.ForeignKey('TM_Group.groupId'))
 
     def __init__(self):
         self.userCode = getModelKey(tableOrderKey)
+        self.states = 'Y'
+        self.createDate = datetime.datetime.now()
+        # self.updateDate = datetime.datetime.now()
 
     def __repr__(self):
         return "<User('%s','%s')>" % (self.userCode, self.userName)
@@ -67,6 +70,7 @@ class User(db.Model):
             '''
             login
             push session
+            session存储的key
             '''
             session[user.userCode] = user.userCode
             return jsonify({'status': '0', 'message': '登录成功','sessionId':user.userCode})
@@ -80,6 +84,9 @@ class User(db.Model):
         pop session
         '''
         user = User
+        '''
+        TODO: 检验session的标准
+        '''
         user.userCode = kwargs['userCode']
         user.userPwd = kwargs['userPwd']
         if user.checkUser(self=user):
@@ -115,13 +122,16 @@ class Group(db.Model):
     __table_args__ = {'extend_existing': True}
     groupId = db.Column(db.Integer, primary_key=True,autoincrement=True)
     groupName = db.Column(db.String(250))
-    states = db.Column(db.CHAR(1),default='Y')
-    createDate = db.Column(db.DateTime,default=datetime.now())
-    updateDate = db.Column(db.DateTime,default=datetime.now())
+    states = db.Column(db.CHAR(1))
+    createDate = db.Column(db.DateTime)
+    updateDate = db.Column(db.DateTime)
     # userId = db.Column(db.Integer,db.ForeignKey('TM_User.userId'))
 
     def __init__(self):
-        return ''
+        self.states = 'Y'
+        self.createDate = datetime.datetime.now()
+        # self.updateDate = datetime.datetime.now()
+        pass
 
     def __repr__(self):
         return '<groupCode %r,groupName %r states %r>' % self.groupCode,self.groupName,self.states
