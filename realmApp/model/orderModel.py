@@ -2,8 +2,24 @@
 from flask import jsonify,request
 from sqlalchemy import func,select
 from realmApp import db
-from ..utility import *
+from realmApp.utility import *
 import datetime
+
+
+from sqlalchemy import Column,text
+from sqlalchemy.types import *
+from sqlalchemy.ext.declarative import declarative_base
+from realmApp.utility import *
+BaseModel = declarative_base()
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker,mapper
+import config
+
+enginee = create_engine(config.MySQLConfig.SQLALCHEMY_DATABASE_URI,echo=True)
+DBSession = sessionmaker(bind=enginee)
+session = DBSession()
+
 
 tableOrderKey = 'OD'
 
@@ -46,6 +62,25 @@ class OrderMain(db.Model):
     def getOrderMains(cls):
         ordersResult = OrderMain.query.all()
         return jsonify(status = '0',datas=[i.serialize for i in ordersResult])
+
+    @classmethod
+    def getOrderMainsJson(cls):
+        # querySqls = enginee.execute(text("select * from TM_OrderMain"))
+        # queryAnss = querySqls.fetchall()
+        # queryAns = queryAnss[0]
+        # queryDics = classToDict(queryAns)
+        # json2 = json.dumps([dict(r) for r in queryAnss], default=alchemyencoder)
+        # json3 = json.dumps(json2, status = '0')
+        # return json2
+
+        '''查询语句查询出来解析成json'''
+        resultProxy = enginee.execute(text("select * from TM_OrderMain"))
+        results = resultProxy.fetchall()
+        result0 = results[0]
+
+        resultArray = row2Array(results)
+        resultProxy.close()
+        return jsonify({"status":0,"count":resultArray.__len__(),"datas":resultArray})
 
     @classmethod
     def getOrderMainsById(cls,orderId):

@@ -1,16 +1,14 @@
 # -*- coding=utf-8 -*-
 
-from sqlalchemy import Column
+from sqlalchemy import Column,text
 from sqlalchemy.types import *
 from sqlalchemy.ext.declarative import declarative_base
-
+from realmApp.utility import *
 BaseModel = declarative_base()
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker,mapper
-from datetime import *
 import config
-
 
 enginee = create_engine(config.MySQLConfig.SQLALCHEMY_DATABASE_URI,echo=True)
 DBSession = sessionmaker(bind=enginee)
@@ -40,10 +38,21 @@ init_db()
 # session.add(student)
 # session.commit()
 
-querys = session.query(Student)
-print (querys)  # 只显示sql语句，不会执行查询
-print (querys[0])  # 执行查询
-print (querys.all())  # 执行查询
-print (querys.first())  # 执行查询
-for query in querys:  # 执行查询
-   print (query.user_name)
+# querys = session.query(Student)
+# print (querys)  # 只显示sql语句，不会执行查询
+# print (querys[0])  # 执行查询
+# print (querys.all())  # 执行查询
+# print (querys.first())  # 执行查询
+# for query in querys:  # 执行查询
+#    print (query.user_name)
+
+
+
+querySqls = enginee.execute(text("select * from TM_User"))
+
+queryAnss = querySqls.fetchall()
+json2 = json.dumps([dict(r) for r in queryAnss], default=alchemyencoder)
+print(json2)
+# for queryAns in queryAnss:  # 执行查询
+#    print (queryAns.userId)
+

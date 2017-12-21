@@ -1,7 +1,7 @@
 #-*- coding: UTF-8 -*-
 from flask import jsonify,session
 from realmApp import db
-from ..utility import *
+from realmApp.utility import *
 import datetime
 
 tableOrderKey = 'UR'
