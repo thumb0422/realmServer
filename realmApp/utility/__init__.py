@@ -57,13 +57,9 @@ def alchemyencoder(obj):
     elif isinstance(obj, decimal.Decimal):
         return float(obj)
 
-def row2Array(rows):
+def rowToArray(rows):
     d = []
     for row in rows:
         row_as_dict = dict(row)
         d.append(row_as_dict)
-    # d = {}
-    # for column in row.__table__.columns:
-    #     d[column.name] = str(getattr(row, column.name))
-
     return d

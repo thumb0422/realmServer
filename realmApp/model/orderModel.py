@@ -3,6 +3,7 @@ from flask import jsonify,request
 from sqlalchemy import func,select
 from realmApp import db
 from realmApp.utility import *
+from realmApp.utility.Response import *
 import datetime
 
 
@@ -74,13 +75,20 @@ class OrderMain(db.Model):
         # return json2
 
         '''查询语句查询出来解析成json'''
+        # resultProxy = enginee.execute(text("select * from TM_OrderMain"))
+        # results = resultProxy.fetchall()
+        # result0 = results[0]
+        #
+        # resultArray = rowToArray(results)
+        # resultProxy.close()
+        # return jsonify({"status":0,"count":resultArray.__len__(),"datas":resultArray})
+
+        '''封装查询出来的语句解析成json'''
         resultProxy = enginee.execute(text("select * from TM_OrderMain"))
         results = resultProxy.fetchall()
-        result0 = results[0]
-
-        resultArray = row2Array(results)
+        resultArray = rowToArray(results)
         resultProxy.close()
-        return jsonify({"status":0,"count":resultArray.__len__(),"datas":resultArray})
+        return DataResopnse(0,'查询成功',resultArray).toJson()
 
     @classmethod
     def getOrderMainsById(cls,orderId):
