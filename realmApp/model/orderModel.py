@@ -93,12 +93,13 @@ class OrderMain(db.Model):
     @classmethod
     def getOrderMainsById(cls,orderId):
         ordersResult = OrderMain.query.filter_by(orderId = orderId).all()
-        return jsonify(status = '0',datas=[i.serialize for i in ordersResult])
+        return DataResopnse(0, '查询成功', [i.serialize for i in ordersResult]).toJson()
+
 
     @classmethod
     def getOrderMainsByExpression(cls,expression):
         ordersResult = OrderMain.query.all().filter(eval(expression)).first()
-        return jsonify(status='0', datas=[i.serialize for i in ordersResult])
+        return DataResopnse(0, '查询成功', [i.serialize for i in ordersResult]).toJson()
 
     @classmethod
     def saveOrderMain(cls,**kwargs):
@@ -115,10 +116,10 @@ class OrderMain(db.Model):
         try:
             db.session.flush()
             db.session.commit()
-            return jsonify({'status':'0','message':'保存成功','keyId':orderMain.orderId})
+            return DataResopnse(0,'保持成功',[{'keyId':orderMain.orderId}]).toJson()
         except:
             db.session.rollback()
-            return jsonify({'status': '-1','message':'保存失败'})
+            return DataResopnse(-1, '保存失败', []).toJson()
 
     @classmethod
     def updateOrderMain(cls,**kwargs):

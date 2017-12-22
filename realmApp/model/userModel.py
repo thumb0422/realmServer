@@ -2,6 +2,7 @@
 from flask import jsonify,session
 from realmApp import db
 from realmApp.utility import *
+from realmApp.utility.Response import *
 import datetime
 
 tableOrderKey = 'UR'
@@ -56,7 +57,8 @@ class User(db.Model):
         try:
             db.session.flush()
             db.session.commit()
-            return jsonify({'status': '0', 'message': '保存成功', 'keyId': user.userCode})
+            # return jsonify({'status': '0', 'message': '保存成功', 'keyId': user.userCode})
+            return DataResopnse(0,'保持成功',[{'keyId':user.userCode}])
         except:
             db.session.rollback()
             return jsonify({'status': '-1', 'message': '保存失败'})
