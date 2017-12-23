@@ -28,7 +28,8 @@ class OrderMain(db.Model):
     __tablename__ = 'TM_OrderMain'
     __table_args__ = {'extend_existing': True}
     orderId = db.Column(db.String(30), primary_key=True)
-    sumAmount = db.Column(db.DECIMAL(10,2))
+    '''TODO: Decimal(10,2) 无法序列化，故改成float，看看后面怎么改'''
+    sumAmount = db.Column(db.FLOAT)
     sumCount = db.Column(db.Integer)
     states = db.Column(db.CHAR(1))
     createDate = db.Column(db.DateTime)
@@ -65,7 +66,7 @@ class OrderMain(db.Model):
         return jsonify(status = '0',datas=[i.serialize for i in ordersResult])
 
     @classmethod
-    def getOrderMainsJson(cls):
+    def getOrderMainsJson(cls,orderId):
         # querySqls = enginee.execute(text("select * from TM_OrderMain"))
         # queryAnss = querySqls.fetchall()
         # queryAns = queryAnss[0]
@@ -82,9 +83,15 @@ class OrderMain(db.Model):
         # resultArray = rowToArray(results)
         # resultProxy.close()
         # return jsonify({"status":0,"count":resultArray.__len__(),"datas":resultArray})
-
+        sqlText = 'select * from TM_OrderMain where 1=1 '
+        sqlDic = {}
+        if orderId:
+            sqlText = sqlText + 'and orderId = :orderId'
+            sqlDic['orderId'] = orderId
+            resultProxy = enginee.execute(text(sqlText),sqlDic)
+        else:
+            resultProxy = enginee.execute(text(sqlText),sqlDic)
         '''封装查询出来的语句解析成json'''
-        resultProxy = enginee.execute(text("select * from TM_OrderMain"))
         results = resultProxy.fetchall()
         resultArray = rowToArray(results)
         resultProxy.close()

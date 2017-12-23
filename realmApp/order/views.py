@@ -19,12 +19,17 @@ def getOrder():
     if request.json is not None:
         jsonDic = converJsonToDic(request.json)
         if 'orderId' in jsonDic.keys():
-            orderId = jsonDic['orderId']
-            if orderId is None:
-                return OrderMain.getOrderMainsJson()
-            return OrderMain.getOrderMainsById(orderId)
+            orderId = jsonDic['orderId'] if jsonDic['orderId'] is not None else ""
         else:
-            return OrderMain.getOrderMainsJson()
+            orderId = ''
+        # if 'orderId' in jsonDic.keys():
+        #     orderId = jsonDic['orderId']
+        #     if orderId is None:
+        #         return OrderMain.getOrderMainsJson()
+        #     return OrderMain.getOrderMainsById(orderId)
+        # else:
+        #     return OrderMain.getOrderMainsJson()
+        return OrderMain.getOrderMainsJson(orderId)
     return jsonify({'status': -1, 'message': '非json格式'})
 
 
