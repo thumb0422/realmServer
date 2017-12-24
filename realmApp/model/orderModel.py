@@ -76,21 +76,12 @@ class OrderMain(db.Model):
         # return json2
 
         '''查询语句查询出来解析成json'''
-        # resultProxy = enginee.execute(text("select * from TM_OrderMain"))
-        # results = resultProxy.fetchall()
-        # result0 = results[0]
-        #
-        # resultArray = rowToArray(results)
-        # resultProxy.close()
-        # return jsonify({"status":0,"count":resultArray.__len__(),"datas":resultArray})
         sqlText = 'select * from TM_OrderMain where 1=1 '
         sqlDic = {}
         if orderId:
             sqlText = sqlText + 'and orderId = :orderId'
             sqlDic['orderId'] = orderId
-            resultProxy = enginee.execute(text(sqlText),sqlDic)
-        else:
-            resultProxy = enginee.execute(text(sqlText),sqlDic)
+        resultProxy = enginee.execute(text(sqlText), sqlDic)
         '''封装查询出来的语句解析成json'''
         results = resultProxy.fetchall()
         resultArray = rowToArray(results)
