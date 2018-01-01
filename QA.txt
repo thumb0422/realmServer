@@ -35,3 +35,10 @@ step3.
 至此，密码修改完成，可以成功登陆。
 
 但是重启后又被初始化了
+
+
+
+通过数据库生成 model.py文件
+Terminal
+pip install sqlacodegen
+sqlacodegen --noviews --noconstraints --noindexes --outfile /Users/chliu.brook/Documents/Brook/Work/Server/Python/realmServer/realmApp/model/model.py  mysql+pymysql://root:1qazxsw2@localhost:3306/realm?charset=utf8
