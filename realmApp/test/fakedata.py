@@ -1,12 +1,14 @@
 #-*- coding: UTF-8 -*-
-from realmApp.model.userModel  import User
-import datetime
-import random
-from uuid import uuid4
+from realmApp.model.model import *
+from realmApp.utility import *
+from realmApp.model import *
 
-user = User()
-user.userId = random.randint(1,1000)
-user.states='Y'
-user.userName = 'Tom'
-db.session.add(user)
-db.session.commit()
+
+for i in range(10):
+    user = TMUSER()
+    user.userCode = getModelKey('UR')
+    user.userName = 'TEST' + str(i)
+    user.email = 'thumb0422@163.com'
+    session.add(user)
+    session.commit()
+

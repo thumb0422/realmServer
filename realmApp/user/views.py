@@ -1,35 +1,40 @@
 # -*- coding=utf-8 -*-
 from . import user
 from flask import jsonify,request,make_response,abort
-from random import random, randint
-from ..model.userModel import *
-import json
+# from ..model.userModel import *
+from realmApp.utility.Response import *
+from realmApp.utility import *
+from realmApp.model.userAction import *
+# import json
 
 @user.route('/')
 def index():
     return 'Hello World I am user'
 
-@user.route('/getUser',methods = ['POST'])
+'''getUser'''
+@user.route('/F1001',methods = ['POST'])
 def getUser():
-    if not request.json :
-        return jsonify({'status':-1,'message':'非json格式'})
-    requestStr = json.dumps(request.json)
-    requestDic = eval(requestStr)
-    userCode = requestDic['userCode']
-    result = User.getUsersById(userCode)
-    return result
+    if request.json is not None:
+        jsonDic = converJsonToDic(request.json)
+        if 'userCode' in jsonDic.keys():
+            userCode = jsonDic['userCode'] if jsonDic['userCode'] is not None else ""
+        else:
+            userCode = ''
+        return UserView.queryUsersSQL(userCode)
+    return DataResopnse(0, '查询成功', []).toJson()
 
-@user.route('/register',methods = ['POST'])
+'''register'''
+@user.route('/F1005',methods = ['POST'])
 def register():
     '''
     用户注册事件
     :return:
     '''
     if not request.json :
-        return jsonify({'status':-1,'message':'非json格式'})
+        return  DataResopnse(-1, '非json格式', []).toJson()
     requestStr = json.dumps(request.json)
     requestDic = eval(requestStr)
-    result = User.saveUsers(**requestDic)
+    result = UserView.saveUsers(**requestDic)
     return result
 
 @user.route('/updateregister',methods = ['POST'])
