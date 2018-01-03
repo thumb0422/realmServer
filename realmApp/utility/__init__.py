@@ -50,13 +50,6 @@ def classToDict(obj):
         dict.update(obj.__dict__)
         return dict
 
-def alchemyencoder(obj):
-    """JSON encoder function for SQLAlchemy special classes."""
-    if isinstance(obj, datetime.date):
-        return obj.isoformat()
-    elif isinstance(obj, decimal.Decimal):
-        return float(obj)
-
 def rowToArray(rows):
     d = []
     for row in rows:

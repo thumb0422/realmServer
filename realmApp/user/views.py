@@ -37,7 +37,8 @@ def register():
     result = UserView.saveUsers(**requestDic)
     return result
 
-@user.route('/updateregister',methods = ['POST'])
+'''updateregister'''
+@user.route('/F1006',methods = ['POST'])
 def updateregister():
     '''
     更新用户状态
@@ -50,7 +51,8 @@ def updateregister():
     result = User.updateUser(**requestDic)
     return result
 
-@user.route('/login',methods = ['POST'])
+'''login'''
+@user.route('/F1007',methods = ['POST'])
 def login():
     '''
     用户登录
@@ -70,7 +72,8 @@ def login():
     result = User.login(**requestDic)
     return result
 
-@user.route('/logout',methods = ['POST'])
+'''logout'''
+@user.route('/F1008',methods = ['POST'])
 def logout():
     '''
     用户登出
