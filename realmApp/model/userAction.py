@@ -8,6 +8,10 @@ from realmApp.utility.alchemyEncoder import *
 
 class UserView:
 
+    def queryByExpression(self):
+
+        pass
+
     @classmethod
     def queryUsersORM(cls,userCode):
         query = session.query(TMUser)
@@ -39,13 +43,27 @@ class UserView:
     ''' insert'''
     @classmethod
     def saveUsers(cls,**kwargs):
-        user = TMUSER()
+        user = TMUser()
         user.userPwd = kwargs['userPwd']
         user.userName = kwargs['userName']
         '''保存的时候以哪个字段为准来判断是否重复'''
         '''以手机号为准'''
-        user.phone = kwargs['phone']
-        user.email = kwargs['email']
+        for key in kwargs:
+            print('key is :%s,value is :%s' % (key, kwargs[key]))
+            if key == 'phone':
+                user.phone = kwargs[key]
+                '''查询是否存在'''
+                isExist = False
+                if isExist:
+                   return DataResopnse(-1, '保存失败,该手机号已注册',[]).toJson()
+            elif key == 'email':
+                user.email = kwargs[key]
+                '''查询是否存在'''
+                isExist = False
+                if isExist:
+                    return DataResopnse(-1, '保存失败,该邮箱已注册', []).toJson()
+            else:
+                break
         user.userCode = getModelKey('UR')
         session.add(user)
         try:
@@ -59,7 +77,11 @@ class UserView:
     ''' update'''
     @classmethod
     def updateUsers(cls,**kwargs):
-        user = TMUSER()
+        user = TMUser()
+        user.userCode = kwargs['userCode']
+        '''查询'''
+
+
         '''保存的时候以哪个字段为准来判断是否重复'''
         '''以手机号为准'''
         user.phone = kwargs['phone']
