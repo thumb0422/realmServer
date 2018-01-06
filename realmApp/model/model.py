@@ -49,6 +49,7 @@ class TMOrderMain(Base):
     sumAmout = Column(Numeric(10, 2))
     isValid = Column(String(1))
     userId = Column(Integer, nullable=False)
+    addressId = Column(Integer)
     createDate = Column(DateTime)
     updateDate = Column(DateTime)
 
@@ -78,8 +79,19 @@ class TMProductType(Base):
     updateDate = Column(DateTime)
 
 
-class TMUSER(Base):
-    __tablename__ = 'TM_USER'
+class TMProductLinkInfo(Base):
+    __tablename__ = 'TM_Product_LinkInfo'
+
+    linkInfoId = Column(Integer, primary_key=True)
+    productCode = Column(String(30))
+    defaultImg = Column(String(255))
+    remark = Column(String(255))
+    isValid = Column(String(1), server_default=text("'Y'"))
+    createDate = Column(DateTime)
+
+
+class TMUser(Base):
+    __tablename__ = 'TM_User'
 
     userId = Column(Integer, primary_key=True)
     userCode = Column(String(30), nullable=False)
@@ -102,3 +114,11 @@ class TMUserLog(Base):
     userId = Column(Integer)
     createDate = Column(DateTime)
     remark = Column(String(255))
+
+
+class TMUserStatu(Base):
+    __tablename__ = 'TM_User_Status'
+
+    id = Column(Integer, primary_key=True)
+    userId = Column(Integer)
+    isLogin = Column(String(1), server_default=text("'Y'"))

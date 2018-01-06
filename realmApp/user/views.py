@@ -37,7 +37,7 @@ def register():
     result = UserView.saveUsers(**requestDic)
     return result
 
-'''updateregister'''
+'''update用户资料'''
 @user.route('/F1006',methods = ['POST'])
 def updateregister():
     '''
@@ -48,8 +48,7 @@ def updateregister():
         return jsonify({'status':-1,'message':'非json格式'})
     requestStr = json.dumps(request.json)
     requestDic = eval(requestStr)
-    result = User.updateUser(**requestDic)
-    return result
+    pass
 
 '''login'''
 @user.route('/F1007',methods = ['POST'])
@@ -69,8 +68,7 @@ def login():
         return jsonify({'status':-1,'message':'非json格式'})
     requestStr = json.dumps(request.json)
     requestDic = eval(requestStr)
-    result = User.login(**requestDic)
-    return result
+    pass
 
 '''logout'''
 @user.route('/F1008',methods = ['POST'])
@@ -83,5 +81,4 @@ def logout():
         return jsonify({'status':-1,'message':'非json格式'})
     requestStr = json.dumps(request.json)
     requestDic = eval(requestStr)
-    result = User.logout(**requestDic)
-    return result
+    pass

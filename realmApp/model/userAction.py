@@ -10,7 +10,7 @@ class UserView:
 
     @classmethod
     def queryUsersORM(cls,userCode):
-        query = session.query(TMUSER)
+        query = session.query(TMUser)
         print(query)
         users = query.all()
         user = users[0]
