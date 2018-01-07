@@ -14,6 +14,7 @@ class UserView:
 
     @classmethod
     def queryUsersORM(cls,userCode):
+        session = Session()
         query = session.query(TMUser)
         print(query)
         users = query.all()
@@ -22,6 +23,7 @@ class UserView:
 
     @classmethod
     def queryUsersSQL(cls,userCode):
+        session = Session()
         sqlText = 'select userCode,userName from TM_USER where 1=1 '
         sqlDic = {}
         if userCode:
@@ -43,6 +45,7 @@ class UserView:
     ''' insert'''
     @classmethod
     def saveUsers(cls,**kwargs):
+        session = Session()
         user = TMUser()
         user.userPwd = kwargs['userPwd']
         user.userName = kwargs['userName']
@@ -73,10 +76,13 @@ class UserView:
         except:
             session.rollback()
             return DataResopnse(-1, '保存失败',[]).toJson()
+        finally:
+            session.close()
 
     ''' update'''
     @classmethod
     def updateUsers(cls,**kwargs):
+        session = Session()
         user = TMUser()
         user.userCode = kwargs['userCode']
         '''查询'''
@@ -98,3 +104,5 @@ class UserView:
         except:
             session.rollback()
             return DataResopnse(-1, '保存失败',[]).toJson()
+        finally:
+            session.close()
