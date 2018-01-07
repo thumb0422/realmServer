@@ -1,10 +1,7 @@
-ALTER TABLE `TM_USER` DROP FOREIGN KEY `fk_TM_USER_TM_Group_1`;
-ALTER TABLE `TM_USER` DROP FOREIGN KEY `fk_TM_USER_TM_Address_1`;
-ALTER TABLE `TM_UserLog` DROP FOREIGN KEY `fk_TM_UserLog_TM_USER_1`;
 ALTER TABLE `TM_Product` DROP FOREIGN KEY `fk_TM_Product_TM_ProductType_1`;
 ALTER TABLE `TM_OrderDetail` DROP FOREIGN KEY `fk_TM_OrderDetail_TM_OrderMain_1`;
 
-DROP TABLE `TM_USER`;
+DROP TABLE `TM_User`;
 DROP TABLE `TM_Address`;
 DROP TABLE `TM_Group`;
 DROP TABLE `TM_UserLog`;
@@ -12,8 +9,10 @@ DROP TABLE `TM_Product`;
 DROP TABLE `TM_ProductType`;
 DROP TABLE `TM_OrderMain`;
 DROP TABLE `TM_OrderDetail`;
+DROP TABLE `TM_Product_LinkInfo`;
+DROP TABLE `TM_User_Status`;
 
-CREATE TABLE `TM_USER` (
+CREATE TABLE `TM_User` (
 `userId` int(11) NOT NULL AUTO_INCREMENT,
 `userCode` varchar(30) CHARACTER SET utf8 NOT NULL,
 `userName` varchar(100) NOT NULL,
@@ -85,6 +84,7 @@ CREATE TABLE `TM_OrderMain` (
 `sumAmout` decimal(10,2) NULL,
 `isValid` varchar(1) NULL,
 `userId` int(11) NOT NULL,
+`addressId` int(11) NULL,
 `createDate` datetime NULL,
 `updateDate` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 PRIMARY KEY (`orderId`) 
@@ -103,10 +103,24 @@ CREATE TABLE `TM_OrderDetail` (
 PRIMARY KEY (`detailId`) 
 );
 
+CREATE TABLE `TM_Product_LinkInfo` (
+`linkInfoId` int(11) NOT NULL AUTO_INCREMENT,
+`productCode` varchar(30) NULL,
+`defaultImg` varchar(255) NULL COMMENT 'imgUrl',
+`remark` varchar(255) NULL COMMENT '描述',
+`isValid` varchar(1) NULL DEFAULT 'Y',
+`createDate` datetime NULL,
+PRIMARY KEY (`linkInfoId`) 
+);
 
-ALTER TABLE `TM_USER` ADD CONSTRAINT `fk_TM_USER_TM_Group_1` FOREIGN KEY (`groupId`) REFERENCES `TM_Group` (`groupId`);
-ALTER TABLE `TM_USER` ADD CONSTRAINT `fk_TM_USER_TM_Address_1` FOREIGN KEY (`addressId`) REFERENCES `TM_Address` (`addressId`);
-ALTER TABLE `TM_UserLog` ADD CONSTRAINT `fk_TM_UserLog_TM_USER_1` FOREIGN KEY (`userId`) REFERENCES `TM_USER` (`userId`);
+CREATE TABLE `TM_User_Status` (
+`userId` int(11) NOT NULL,
+`isLogin` varchar(1) NULL DEFAULT 'Y',
+`updateDate` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY (`userId`) 
+);
+
+
 ALTER TABLE `TM_Product` ADD CONSTRAINT `fk_TM_Product_TM_ProductType_1` FOREIGN KEY (`typeId`) REFERENCES `TM_ProductType` (`typeId`);
 ALTER TABLE `TM_OrderDetail` ADD CONSTRAINT `fk_TM_OrderDetail_TM_OrderMain_1` FOREIGN KEY (`orderId`) REFERENCES `TM_OrderMain` (`orderId`);
 
