@@ -40,7 +40,25 @@ class UserView:
     '''视图查询'''
     @classmethod
     def queryUsersView(cls):
-        pass;
+        pass
+
+    '''检查用户帐号、密码是否存在'''
+    @classmethod
+    def checkUser(cls,**kwargs):
+        session = Session()
+        pwd = kwargs['userPwd']
+        phone = kwargs['phone']
+        queryPhone = session.query(TMUser).filter(TMUser.phone == phone, TMUser.isValid == 'Y').all()
+        isPhoneExist = queryPhone.__len__() > 0
+        if isPhoneExist:
+            queryPwd = queryPhone.filter(TMUser.userPwd == pwd).all()
+            isPwdExist = queryPwd.__len__() > 0
+            if isPwdExist:
+                return True
+            else:
+                return False
+        else:
+            return False
 
     ''' insert'''
     @classmethod
@@ -104,5 +122,47 @@ class UserView:
         except:
             session.rollback()
             return DataResopnse(-1, '保存失败',[]).toJson()
+        finally:
+            session.close()
+
+    @classmethod
+    def userLogin(cls,**kwargs):
+        session = Session()
+        userStatus = TMUserStatu()
+        '''查询出该用户的信息'''
+        phone = kwargs['phone']
+        querys = session.query(TMUser).filter(TMUser.phone == phone, TMUser.isValid == 'Y').all()
+        user = querys[0]
+        userStatus.isLogin = 'Y'
+        userStatus.userId = user.userId
+        session.add(userStatus)
+        try:
+            session.flush()
+            session.commit()
+            return DataResopnse(0, '登录成功', []).toJson()
+        except:
+            session.rollback()
+            return DataResopnse(-1, '登录失败', []).toJson()
+        finally:
+            session.close()
+
+    @classmethod
+    def userLogOut(cls,**kwargs):
+        session = Session()
+        userStatus = TMUserStatu()
+        '''查询出该用户的信息'''
+        phone = kwargs['phone']
+        querys = session.query(TMUser).filter(TMUser.phone == phone, TMUser.isValid == 'Y').all()
+        user = querys[0]
+        userStatus.isLogin = 'N'
+        userStatus.userId = user.userId
+        session.add(userStatus)
+        try:
+            session.flush()
+            session.commit()
+            return DataResopnse(0, '退出成功', []).toJson()
+        except:
+            session.rollback()
+            return DataResopnse(-1, '退出失败', []).toJson()
         finally:
             session.close()

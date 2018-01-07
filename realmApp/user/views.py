@@ -5,7 +5,6 @@ from flask import jsonify,request,make_response,abort
 from realmApp.utility.Response import *
 from realmApp.utility import *
 from realmApp.model.userAction import *
-# import json
 
 @user.route('/')
 def index():
@@ -42,10 +41,10 @@ def register():
 def updateregister():
     '''
     更新用户状态
-    :return:
+    TODO:
     '''
     if not request.json :
-        return jsonify({'status':-1,'message':'非json格式'})
+        return DataResopnse(-1, '非json格式', []).toJson()
     requestStr = json.dumps(request.json)
     requestDic = eval(requestStr)
     pass
@@ -65,10 +64,15 @@ def login():
     '''
 
     if not request.json :
-        return jsonify({'status':-1,'message':'非json格式'})
+        return DataResopnse(-1, '非json格式', []).toJson()
     requestStr = json.dumps(request.json)
     requestDic = eval(requestStr)
-    pass
+    '''check'''
+    if UserView.checkUser(**requestDic):
+        '''login'''
+        return UserView.userLogin(**requestDic)
+    else:
+        return DataResopnse(-1, '该用户未注册', []).toJson()
 
 '''logout'''
 @user.route('/F1008',methods = ['POST'])
@@ -81,4 +85,4 @@ def logout():
         return jsonify({'status':-1,'message':'非json格式'})
     requestStr = json.dumps(request.json)
     requestDic = eval(requestStr)
-    pass
+    return UserView.userLogOut(**requestDic)

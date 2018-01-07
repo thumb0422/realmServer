@@ -119,6 +119,6 @@ class TMUserLog(Base):
 class TMUserStatu(Base):
     __tablename__ = 'TM_User_Status'
 
-    id = Column(Integer, primary_key=True)
-    userId = Column(Integer)
+    userId = Column(Integer, primary_key=True)
     isLogin = Column(String(1), server_default=text("'Y'"))
+    updateDate = Column(DateTime)
