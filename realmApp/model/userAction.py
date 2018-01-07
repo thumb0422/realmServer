@@ -9,7 +9,6 @@ from realmApp.utility.alchemyEncoder import *
 class UserView:
 
     def queryByExpression(self):
-
         pass
 
     @classmethod
@@ -77,53 +76,53 @@ class UserView:
                 '''查询是否存在'''
                 isExist = query.__len__() > 0
                 if isExist:
-                   return DataResopnse(-1, '保存失败,该手机号已注册',[]).toJson()
+                   return DataResopnse(-1, '注册失败,该手机号已注册',[]).toJson()
             elif key == 'email':
                 user.email = kwargs[key]
                 query = session.query(TMUser).filter(TMUser.email == user.email, TMUser.isValid == 'Y').all()
                 '''查询是否存在'''
                 isExist = query.__len__() > 0
                 if isExist:
-                    return DataResopnse(-1, '保存失败,该邮箱已注册', []).toJson()
+                    return DataResopnse(-1, '注册失败,该邮箱已注册', []).toJson()
         user.userCode = getModelKey('UR')
         session.add(user)
         try:
             session.flush()
             session.commit()
-            return DataResopnse(0, '保持成功', [{'keyId': user.userCode}]).toJson()
+            return DataResopnse(0, '注册成功', [{'keyId': user.userCode}]).toJson()
         except:
             session.rollback()
-            return DataResopnse(-1, '保存失败',[]).toJson()
+            return DataResopnse(-1, '注册失败',[]).toJson()
         finally:
             session.close()
 
-    ''' update'''
-    @classmethod
-    def updateUsers(cls,**kwargs):
-        session = Session()
-        user = TMUser()
-        user.userCode = kwargs['userCode']
-        '''查询'''
-
-
-        '''保存的时候以哪个字段为准来判断是否重复'''
-        '''以手机号为准'''
-        user.phone = kwargs['phone']
-
-        user.userPwd = kwargs['userPwd']
-        user.userName = kwargs['userName']
-
-        user.userCode = getModelKey('UR')
-        session.add(user)
-        try:
-            session.flush()
-            session.commit()
-            return DataResopnse(0, '保持成功', [{'keyId': user.userCode}]).toJson()
-        except:
-            session.rollback()
-            return DataResopnse(-1, '保存失败',[]).toJson()
-        finally:
-            session.close()
+    # ''' update'''
+    # @classmethod
+    # def updateUsers(cls,**kwargs):
+    #     session = Session()
+    #     user = TMUser()
+    #     user.userCode = kwargs['userCode']
+    #     '''查询'''
+    #
+    #
+    #     '''保存的时候以哪个字段为准来判断是否重复'''
+    #     '''以手机号为准'''
+    #     user.phone = kwargs['phone']
+    #
+    #     user.userPwd = kwargs['userPwd']
+    #     user.userName = kwargs['userName']
+    #
+    #     user.userCode = getModelKey('UR')
+    #     session.add(user)
+    #     try:
+    #         session.flush()
+    #         session.commit()
+    #         return DataResopnse(0, '更新资料成功', [{'keyId': user.userCode}]).toJson()
+    #     except:
+    #         session.rollback()
+    #         return DataResopnse(-1, '更新资料失败',[]).toJson()
+    #     finally:
+    #         session.close()
 
     @classmethod
     def userLogin(cls,**kwargs):
@@ -160,9 +159,27 @@ class UserView:
         try:
             session.flush()
             session.commit()
-            return DataResopnse(0, '退出成功', []).toJson()
+            return DataResopnse(0, '登出成功', []).toJson()
         except:
             session.rollback()
-            return DataResopnse(-1, '退出失败', []).toJson()
+            return DataResopnse(-1, '登出失败', []).toJson()
+        finally:
+            session.close()
+
+    @classmethod
+    def deleteUser(cls,phone):
+        session = Session()
+        '''查询出该用户的信息'''
+        phone = phone
+        querys = session.query(TMUser).filter(TMUser.phone == phone, TMUser.isValid == 'Y').all()
+        for query in querys:
+            session.delete(query)
+        try:
+            session.flush()
+            session.commit()
+            return DataResopnse(0, '删除成功', []).toJson()
+        except:
+            session.rollback()
+            return DataResopnse(-1, '删除失败', []).toJson()
         finally:
             session.close()

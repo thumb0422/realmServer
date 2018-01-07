@@ -1,7 +1,6 @@
 # -*- coding=utf-8 -*-
 from . import user
 from flask import jsonify,request,make_response,abort
-# from ..model.userModel import *
 from realmApp.utility.Response import *
 from realmApp.utility import *
 from realmApp.model.userAction import *
@@ -86,3 +85,13 @@ def logout():
     requestStr = json.dumps(request.json)
     requestDic = eval(requestStr)
     return UserView.userLogOut(**requestDic)
+
+'''deleteUser'''
+@user.route('/F1009',methods = ['POST'])
+def deleteUser():
+    if not request.json :
+        return jsonify({'status':-1,'message':'非json格式'})
+    requestStr = json.dumps(request.json)
+    requestDic = eval(requestStr)
+    phone = requestDic['phone']
+    return UserView.deleteUser(phone)
