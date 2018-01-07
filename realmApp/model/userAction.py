@@ -52,18 +52,18 @@ class UserView:
             print('key is :%s,value is :%s' % (key, kwargs[key]))
             if key == 'phone':
                 user.phone = kwargs[key]
+                query = session.query(TMUser).filter(TMUser.phone==user.phone,TMUser.isValid=='Y').all()
                 '''查询是否存在'''
-                isExist = False
+                isExist = query.__len__() > 0
                 if isExist:
                    return DataResopnse(-1, '保存失败,该手机号已注册',[]).toJson()
             elif key == 'email':
                 user.email = kwargs[key]
+                query = session.query(TMUser).filter(TMUser.email == user.email, TMUser.isValid == 'Y').all()
                 '''查询是否存在'''
-                isExist = False
+                isExist = query.__len__() > 0
                 if isExist:
                     return DataResopnse(-1, '保存失败,该邮箱已注册', []).toJson()
-            else:
-                break
         user.userCode = getModelKey('UR')
         session.add(user)
         try:
