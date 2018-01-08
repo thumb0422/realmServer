@@ -148,10 +148,8 @@ class UserView:
     @classmethod
     def userLogOut(cls,**kwargs):
         session = Session()
-        userStatus = TMUserStatu()
         '''查询出该用户的信息'''
         phone = kwargs['phone']
-        user = querys[0]
         queryUsers = session.query(TMUser).filter(TMUser.phone == phone, TMUser.isValid == 'Y').all()
         if queryUsers.__len__() < 0:
             session.close()
