@@ -50,7 +50,7 @@ class UserView:
         queryPhone = session.query(TMUser).filter(TMUser.phone == phone, TMUser.isValid == 'Y').all()
         isPhoneExist = queryPhone.__len__() > 0
         if isPhoneExist:
-            queryPwd = queryPhone.filter(TMUser.userPwd == pwd).all()
+            queryPwd = session.query(TMUser).filter(TMUser.phone == phone, TMUser.isValid == 'Y',TMUser.userPwd == pwd).all()
             isPwdExist = queryPwd.__len__() > 0
             if isPwdExist:
                 return True
@@ -151,10 +151,24 @@ class UserView:
         userStatus = TMUserStatu()
         '''查询出该用户的信息'''
         phone = kwargs['phone']
-        querys = session.query(TMUser).filter(TMUser.phone == phone, TMUser.isValid == 'Y').all()
         user = querys[0]
+        queryUsers = session.query(TMUser).filter(TMUser.phone == phone, TMUser.isValid == 'Y').all()
+        if queryUsers.__len__() < 0:
+            session.close()
+            return DataResopnse(0, '登出成功', []).toJson()
+        user = queryUsers[0]
+        userId = user.userId
+        '''delete TMUserStatu'''
+        queryUserStatus = session.query(TMUserStatu).filter(TMUserStatu.userId == userId).all()
+        if queryUserStatus.__len__()<0:
+            session.close()
+            return DataResopnse(0, '登出成功', []).toJson()
+
+        for queryuserStatus in queryUserStatus:
+            session.delete(queryuserStatus)
+        userStatus = TMUserStatu()
+        userStatus.userId = userId
         userStatus.isLogin = 'N'
-        userStatus.userId = user.userId
         session.add(userStatus)
         try:
             session.flush()
