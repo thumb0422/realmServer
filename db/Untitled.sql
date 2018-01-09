@@ -22,7 +22,7 @@ CREATE TABLE `TM_User` (
 `addressId` int(11) NULL,
 `phone` varchar(30) NULL,
 `email` varchar(255) NULL,
-`createDate` datetime NULL,
+`createDate` datetime NULL DEFAULT Current_Timestamp(),
 `updateDate` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 PRIMARY KEY (`userId`) 
 )
@@ -33,7 +33,7 @@ CREATE TABLE `TM_Address` (
 `userId` int(11) NULL,
 `address` text NULL,
 `isValid` varchar(1) NULL DEFAULT 'Y',
-`createDate` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+`createDate` datetime NULL DEFAULT Current_Timestamp(),
 PRIMARY KEY (`addressId`) 
 );
 
@@ -41,7 +41,7 @@ CREATE TABLE `TM_Group` (
 `groupId` int(11) NOT NULL AUTO_INCREMENT,
 `groudCode` varchar(30) NULL,
 `isValid` varchar(1) NULL DEFAULT 'Y',
-`createDate` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+`createDate` datetime NULL DEFAULT Current_Timestamp(),
 PRIMARY KEY (`groupId`) 
 );
 
@@ -49,7 +49,7 @@ CREATE TABLE `TM_UserLog` (
 `logId` int(11) NOT NULL AUTO_INCREMENT,
 `logType` varchar(10) NULL,
 `userId` int(11) NULL,
-`createDate` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+`createDate` datetime NULL DEFAULT Current_Timestamp(),
 `remark` varchar(255) NULL,
 PRIMARY KEY (`logId`) 
 );
@@ -63,7 +63,7 @@ CREATE TABLE `TM_Product` (
 `salePrice` decimal(10,2) NULL,
 `isValid` varchar(1) NULL DEFAULT 'Y',
 `defaultImg` varchar(255) NULL COMMENT '默认显示图片路径',
-`createDate` datetime NULL,
+`createDate` datetime NULL DEFAULT Current_Timestamp(),
 `updateDate` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 PRIMARY KEY (`productId`) 
 );
@@ -72,7 +72,7 @@ CREATE TABLE `TM_ProductType` (
 `typeId` int(11) NOT NULL AUTO_INCREMENT,
 `typeCode` varchar(255) NULL,
 `isValid` varchar(1) NULL,
-`createDate` datetime NULL,
+`createDate` datetime NULL DEFAULT Current_Timestamp(),
 `updateDate` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 PRIMARY KEY (`typeId`) 
 );
@@ -85,7 +85,7 @@ CREATE TABLE `TM_OrderMain` (
 `isValid` varchar(1) NULL,
 `userId` int(11) NOT NULL,
 `addressId` int(11) NULL,
-`createDate` datetime NULL,
+`createDate` datetime NULL DEFAULT Current_Timestamp(),
 `updateDate` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 PRIMARY KEY (`orderId`) 
 );
@@ -98,7 +98,7 @@ CREATE TABLE `TM_OrderDetail` (
 `saleCount` decimal(10,2) NULL,
 `saleAmount` decimal(10,2) NULL,
 `isValid` varchar(1) NULL DEFAULT 'Y',
-`createDate` datetime NULL,
+`createDate` datetime NULL DEFAULT Current_Timestamp(),
 `updateDate` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 PRIMARY KEY (`detailId`) 
 );
@@ -109,14 +109,14 @@ CREATE TABLE `TM_Product_LinkInfo` (
 `defaultImg` varchar(255) NULL COMMENT 'imgUrl',
 `remark` varchar(255) NULL COMMENT '描述',
 `isValid` varchar(1) NULL DEFAULT 'Y',
-`createDate` datetime NULL,
+`createDate` datetime NULL DEFAULT Current_Timestamp(),
 PRIMARY KEY (`linkInfoId`) 
 );
 
 CREATE TABLE `TM_User_Status` (
 `userId` int(11) NOT NULL,
 `isLogin` varchar(1) NULL DEFAULT 'Y',
-`updateDate` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+`updateDate` datetime NULL DEFAULT Current_Timestamp(),
 PRIMARY KEY (`userId`) 
 );
 
