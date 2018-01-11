@@ -1,7 +1,7 @@
 # -*- coding=utf-8 -*-
 from . import product
 from realmApp.model.model import *
-from flask import jsonify,request,make_response,abort,render_template
+from flask import jsonify,request,make_response,abort,render_template,send_from_directory
 from realmApp.utility.Response import *
 from realmApp.utility import *
 from realmApp.model.productAction import *
@@ -11,11 +11,13 @@ from flask import Flask,render_template,jsonify,request
 import time
 import os
 import base64
+import uuid
 
-UPLOAD_FOLDER = 'upload'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+UPLOAD_FOLDER = 'image'
 basedir = os.path.abspath(os.path.dirname(__file__))
-ALLOWED_EXTENSIONS = set(['txt', 'png', 'jpg', 'xls', 'JPG', 'PNG', 'xlsx', 'gif', 'GIF'])
+from manage import app
+basedir = app.root_path
+ALLOWED_EXTENSIONS = set(['png','jpg','JPG','PNG','gif','GIF'])
 
 # 用于判断文件后缀
 def allowed_file(filename):
@@ -30,7 +32,7 @@ def upload_test():
 '''图片上传'''
 @product.route('/F3001',methods = ['POST'],strict_slashes=False)
 def uploadProductImg():
-    file_dir = os.path.join(basedir, app.config['UPLOAD_FOLDER'])
+    file_dir = os.path.join(basedir, UPLOAD_FOLDER)
     if not os.path.exists(file_dir):
         os.makedirs(file_dir)
     f = request.files['myfile']  # 从表单的file字段获取文件，myfile为该表单的name值
@@ -39,11 +41,18 @@ def uploadProductImg():
         print(fname)
         ext = fname.rsplit('.', 1)[1]  # 获取文件后缀
         unix_time = int(time.time())
-        new_filename = str(unix_time) + '.' + ext  # 修改了上传的文件名
+        new_filename = str(uuid.uuid1()) + '.' + ext  # 修改了上传的文件名
         f.save(os.path.join(file_dir, new_filename))  # 保存文件到upload目录
-        token = base64.b64encode(new_filename)
-        print(token)
-
+        # token = base64.b64encode(new_filename)
+        # print(token)
+        token = ''
         return jsonify({"errno": 0, "errmsg": "上传成功", "token": token})
     else:
         return jsonify({"errno": 1001, "errmsg": "上传失败"})
+
+
+'''图片下载'''
+@product.route("/download/<path:filename>")
+def downloader(filename):
+    dirpath = os.path.join(basedir, UPLOAD_FOLDER)  # 这里是下在目录，从工程的根目录写起，比如你要下载static/js里面的js文件，这里就要写“static/js”
+    return send_from_directory(dirpath, filename, as_attachment=False)  # as_attachment=True 一定要写，不然会变成打开，而不是下载
