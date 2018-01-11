@@ -5,6 +5,6 @@
 
 from flask import Blueprint
 
-order = Blueprint('product', __name__)
+product = Blueprint('product', __name__)
 
 from . import views,errors

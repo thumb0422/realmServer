@@ -24,4 +24,7 @@ def create_app(config_name):
     from .user import user as user_blueprint
     app.register_blueprint(user_blueprint, url_prefix='/user')
 
+    from .product import product as product_blueprint
+    app.register_blueprint(product_blueprint, url_prefix='/product')
+
     return app
