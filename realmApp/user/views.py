@@ -30,6 +30,9 @@ def register():
     '''
     if not request.json :
         return  DataResopnse(-1, '非json格式', []).toJson()
+    data = request.data.decode('utf-8')
+    json_data = json.loads(data)
+
     requestStr = json.dumps(request.json)
     requestDic = eval(requestStr)
     result = UserView.saveUsers(**requestDic)
