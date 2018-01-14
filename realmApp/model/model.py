@@ -26,6 +26,22 @@ class TMGroup(Base):
     createDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP"))
 
 
+class TMLevel(Base):
+    __tablename__ = 'TM_Level'
+
+    levelId = Column(Integer, primary_key=True)
+    levelName = Column(String(255))
+    isValid = Column(String(1), server_default=text("'Y'"))
+
+
+class TMModel(Base):
+    __tablename__ = 'TM_Model'
+
+    modelId = Column(Integer, primary_key=True)
+    modelName = Column(String(255))
+    isValid = Column(String(1), server_default=text("'Y'"))
+
+
 class TMOrderDetail(Base):
     __tablename__ = 'TM_OrderDetail'
 
@@ -37,7 +53,7 @@ class TMOrderDetail(Base):
     saleAmount = Column(Numeric(10, 2))
     isValid = Column(String(1), server_default=text("'Y'"))
     createDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP"))
-    updateDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"))
+    updateDate = Column(DateTime)
 
 
 class TMOrderMain(Base):
@@ -51,32 +67,36 @@ class TMOrderMain(Base):
     userId = Column(Integer, nullable=False)
     addressId = Column(Integer)
     createDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP"))
-    updateDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"))
+    updateDate = Column(DateTime)
 
 
 class TMProduct(Base):
     __tablename__ = 'TM_Product'
 
     productId = Column(Integer, primary_key=True)
-    productCode = Column(String(30))
-    productName = Column(String(255))
-    typeId = Column(Integer)
+    productCode = Column(String(30), nullable=False)
+    productName = Column(String(255), nullable=False)
+    typeCode = Column(String(255), nullable=False)
     costPrice = Column(Numeric(10, 2))
     salePrice = Column(Numeric(10, 2))
     isValid = Column(String(1), server_default=text("'Y'"))
-    defaultImg = Column(String(255))
     createDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP"))
-    updateDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"))
+    updateDate = Column(DateTime)
 
 
 class TMProductType(Base):
     __tablename__ = 'TM_ProductType'
 
     typeId = Column(Integer, primary_key=True)
-    typeCode = Column(String(255))
+    typeCode = Column(String(255), nullable=False)
+    version = Column(String(255))
+    projectId = Column(Integer)
+    styleId = Column(Integer)
+    modelId = Column(Integer)
+    levelId = Column(Integer)
     isValid = Column(String(1))
     createDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP"))
-    updateDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"))
+    updateDate = Column(DateTime)
 
 
 class TMProductLinkInfo(Base):
@@ -87,7 +107,23 @@ class TMProductLinkInfo(Base):
     defaultImg = Column(String(255))
     remark = Column(String(255))
     isValid = Column(String(1), server_default=text("'Y'"))
-    createDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"))
+    createDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP"))
+
+
+class TMProject(Base):
+    __tablename__ = 'TM_Project'
+
+    projectId = Column(Integer, primary_key=True)
+    projectName = Column(String(255))
+    isValid = Column(String(1), server_default=text("'Y'"))
+
+
+class TMStyle(Base):
+    __tablename__ = 'TM_Style'
+
+    styleId = Column(Integer, primary_key=True)
+    styleName = Column(String(255))
+    isValid = Column(String(1), server_default=text("'Y'"))
 
 
 class TMUser(Base):
@@ -103,7 +139,7 @@ class TMUser(Base):
     phone = Column(String(30))
     email = Column(String(255))
     createDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP"))
-    updateDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"))
+    updateDate = Column(DateTime)
 
 
 class TMUserLog(Base):

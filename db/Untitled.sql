@@ -1,4 +1,3 @@
-ALTER TABLE `TM_Product` DROP FOREIGN KEY `fk_TM_Product_TM_ProductType_1`;
 ALTER TABLE `TM_OrderDetail` DROP FOREIGN KEY `fk_TM_OrderDetail_TM_OrderMain_1`;
 
 DROP TABLE `TM_User`;
@@ -11,6 +10,10 @@ DROP TABLE `TM_OrderMain`;
 DROP TABLE `TM_OrderDetail`;
 DROP TABLE `TM_Product_LinkInfo`;
 DROP TABLE `TM_User_Status`;
+DROP TABLE `TM_Project`;
+DROP TABLE `TM_Style`;
+DROP TABLE `TM_Level`;
+DROP TABLE `TM_Model`;
 
 CREATE TABLE `TM_User` (
 `userId` int(11) NOT NULL AUTO_INCREMENT,
@@ -56,13 +59,12 @@ PRIMARY KEY (`logId`)
 
 CREATE TABLE `TM_Product` (
 `productId` int(11) NOT NULL AUTO_INCREMENT,
-`productCode` varchar(30) NULL,
-`productName` varchar(255) NULL,
-`typeId` int(11) NULL COMMENT '产品分类',
-`costPrice` decimal(10,2) NULL,
-`salePrice` decimal(10,2) NULL,
+`productCode` varchar(30) NOT NULL COMMENT '产品代码',
+`productName` varchar(255) NOT NULL COMMENT '产品名称',
+`typeCode` varchar(255) NOT NULL COMMENT '产品分类',
+`costPrice` decimal(10,2) NULL COMMENT '成本价(订单产生时)',
+`salePrice` decimal(10,2) NULL COMMENT '销售价',
 `isValid` varchar(1) NULL DEFAULT 'Y',
-`defaultImg` varchar(255) NULL COMMENT '默认显示图片路径',
 `createDate` datetime NULL DEFAULT Current_Timestamp(),
 `updateDate` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 PRIMARY KEY (`productId`) 
@@ -70,7 +72,12 @@ PRIMARY KEY (`productId`)
 
 CREATE TABLE `TM_ProductType` (
 `typeId` int(11) NOT NULL AUTO_INCREMENT,
-`typeCode` varchar(255) NULL,
+`typeCode` varchar(255) NOT NULL,
+`version` varchar(255) NULL COMMENT '版本名称',
+`projectId` int(11) NULL COMMENT '项目',
+`styleId` int(11) NULL COMMENT '款式',
+`modelId` int(11) NULL COMMENT '型号',
+`levelId` int(11) NULL COMMENT '层次',
 `isValid` varchar(1) NULL,
 `createDate` datetime NULL DEFAULT Current_Timestamp(),
 `updateDate` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -120,7 +127,34 @@ CREATE TABLE `TM_User_Status` (
 PRIMARY KEY (`userId`) 
 );
 
+CREATE TABLE `TM_Project` (
+`projectId` int(11) NOT NULL AUTO_INCREMENT,
+`projectName` varchar(255) NULL,
+`isValid` varchar(1) NULL DEFAULT 'Y',
+PRIMARY KEY (`projectId`) 
+);
 
-ALTER TABLE `TM_Product` ADD CONSTRAINT `fk_TM_Product_TM_ProductType_1` FOREIGN KEY (`typeId`) REFERENCES `TM_ProductType` (`typeId`);
+CREATE TABLE `TM_Style` (
+`styleId` int(11) NOT NULL AUTO_INCREMENT,
+`styleName` varchar(255) NULL COMMENT '款式(四叉勾、打孔 、、)',
+`isValid` varchar(1) NULL DEFAULT 'Y',
+PRIMARY KEY (`styleId`) 
+);
+
+CREATE TABLE `TM_Level` (
+`levelId` int(11) NOT NULL AUTO_INCREMENT COMMENT '层次',
+`levelName` varchar(255) NULL COMMENT '单层、双层',
+`isValid` varchar(1) NULL DEFAULT 'Y',
+PRIMARY KEY (`levelId`) 
+);
+
+CREATE TABLE `TM_Model` (
+`modelId` int(11) NOT NULL AUTO_INCREMENT,
+`modelName` varchar(255) NULL,
+`isValid` varchar(1) NULL DEFAULT 'Y',
+PRIMARY KEY (`modelId`) 
+);
+
+
 ALTER TABLE `TM_OrderDetail` ADD CONSTRAINT `fk_TM_OrderDetail_TM_OrderMain_1` FOREIGN KEY (`orderId`) REFERENCES `TM_OrderMain` (`orderId`);
 
