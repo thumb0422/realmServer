@@ -13,8 +13,8 @@ def not_found(error):
 def index():
     return 'Hello World I am order'
 
-
-@order.route('/getOrder',methods = ['POST'])
+'''getOrder'''
+@order.route('/F2001',methods = ['POST'])
 def getOrder():
     if request.json is not None:
         jsonDic = converJsonToDic(request.json)
@@ -32,28 +32,13 @@ def getOrder():
         return OrderMain.getOrderMainsJson(orderId)
     return jsonify({'status': -1, 'message': '非json格式'})
 
-
-@order.route('/addOrder')
-def addOrder():
-    ordermain = OrderMain()
-    ordermain.states = 'Y'
-    ordermain.sumAmount = 100
-    ordermain.sumCount = 5
-    db.session.add(ordermain)
-    try:
-        db.session.flush()
-        db.session.commit()
-        return jsonify({'status': '0','message':'保存成功'})
-    except:
-        db.session.rollback()
-        return jsonify({'status': '-1'})
-
-@order.route('/saveOrder',methods = ['POST','GET'])
+'''saveOrder'''
+@order.route('/F2002',methods = ['POST','GET'])
 def saveOrder():
     if not request.json :
-        return jsonify({'status':-1,'message':'非json格式'})
-    requestStr = json.dumps(request.json)
-    requestDic = eval(requestStr)
+        return  DataResopnse(-1, '非json格式', []).toJson()
+    data = request.data.decode('utf-8')
+    requestDic = json.loads(data)
     result = OrderMain.saveOrderMain(**requestDic)
     return result
 

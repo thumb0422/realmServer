@@ -31,10 +31,10 @@ def register():
     if not request.json :
         return  DataResopnse(-1, '非json格式', []).toJson()
     data = request.data.decode('utf-8')
-    json_data = json.loads(data)
+    requestDic = json.loads(data)
 
-    requestStr = json.dumps(request.json)
-    requestDic = eval(requestStr)
+    # requestStr = json.dumps(request.json)
+    # requestDic = eval(requestStr)
     result = UserView.saveUsers(**requestDic)
     return result
 
@@ -46,9 +46,9 @@ def updateregister():
     TODO:
     '''
     if not request.json :
-        return DataResopnse(-1, '非json格式', []).toJson()
-    requestStr = json.dumps(request.json)
-    requestDic = eval(requestStr)
+        return  DataResopnse(-1, '非json格式', []).toJson()
+    data = request.data.decode('utf-8')
+    requestDic = json.loads(data)
     pass
 
 '''login'''
@@ -66,9 +66,9 @@ def login():
     '''
 
     if not request.json :
-        return DataResopnse(-1, '非json格式', []).toJson()
-    requestStr = json.dumps(request.json)
-    requestDic = eval(requestStr)
+        return  DataResopnse(-1, '非json格式', []).toJson()
+    data = request.data.decode('utf-8')
+    requestDic = json.loads(data)
     '''check'''
     if UserView.checkUser(**requestDic):
         '''login'''
@@ -84,17 +84,17 @@ def logout():
     :return:
     '''
     if not request.json :
-        return jsonify({'status':-1,'message':'非json格式'})
-    requestStr = json.dumps(request.json)
-    requestDic = eval(requestStr)
+        return  DataResopnse(-1, '非json格式', []).toJson()
+    data = request.data.decode('utf-8')
+    requestDic = json.loads(data)
     return UserView.userLogOut(**requestDic)
 
 '''deleteUser'''
 @user.route('/F1009',methods = ['POST'])
 def deleteUser():
     if not request.json :
-        return jsonify({'status':-1,'message':'非json格式'})
-    requestStr = json.dumps(request.json)
-    requestDic = eval(requestStr)
+        return  DataResopnse(-1, '非json格式', []).toJson()
+    data = request.data.decode('utf-8')
+    requestDic = json.loads(data)
     phone = requestDic['phone']
     return UserView.deleteUser(phone)
