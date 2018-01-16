@@ -10,8 +10,18 @@ class ProductView:
 
     '''单个产品的信息'''
     @classmethod
-    def queryProductByProductCode(cls):
-        pass
+    def queryProductCode(cls,productCode):
+        session = Session()
+        sqlText = '''SELECT a.productCode,a.productName,a.costPrice,a.salePrice,b.typeCode,b.version,b.styleName,b.projectName,b.modelName,b.levelName 
+                     FROM TM_Product a , producttypeinfoview b WHERE a.isValid='Y' AND  a.typeCode = b.typeCode'''
+        sqlDic = {}
+        if productCode:
+            sqlText = sqlText + 'and productCode = :productCode'
+            sqlDic['productCode'] = productCode
+        res = session.execute(text(sqlText), sqlDic).fetchall()
+        resultArray = rowToArray(res)
+        session.close()
+        return DataResopnse(0, '查询成功', resultArray).toJson()
 
     '''首页几个轮动的屏幕图片'''
     @classmethod

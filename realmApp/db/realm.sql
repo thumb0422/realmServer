@@ -263,4 +263,30 @@ CREATE TABLE `TM_UserLog` (
   PRIMARY KEY (`logId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+-- View structure for ProductTypeInfoView
+-- ----------------------------
+DROP VIEW IF EXISTS `ProductTypeInfoView`;
+CREATE
+VIEW `ProductTypeInfoView` AS
+SELECT
+TM_ProductType.typeId,
+TM_ProductType.typeCode,
+TM_ProductType.version,
+TM_Project.projectName,
+TM_Style.styleName,
+TM_Model.modelName,
+TM_Level.levelName
+FROM
+TM_ProductType,
+TM_Project,
+TM_Style,
+TM_Model,
+TM_Level
+WHERE 1=1 AND TM_ProductType.isValid = 'Y' AND TM_ProductType.projectId = TM_Project.projectId
+					AND TM_Style.isValid = 'Y'       AND TM_ProductType.styleId = TM_Style.styleId
+					AND TM_Model.isValid = 'Y'       AND TM_ProductType.modelId = TM_Model.modelId
+					AND TM_Level.isValid = 'Y'	     AND TM_ProductType.levelId = TM_Level.levelId
+ORDER BY TM_ProductType.createDate
+
 SET FOREIGN_KEY_CHECKS = 1;
