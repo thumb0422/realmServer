@@ -54,5 +54,8 @@ def rowToArray(rows):
     d = []
     for row in rows:
         row_as_dict = dict(row)
-        d.append(row_as_dict)
+        resultDic = {}
+        for (k,v) in row_as_dict.items():
+            resultDic[str(k)] = str(v)
+        d.append(resultDic)
     return d
