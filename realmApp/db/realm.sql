@@ -287,6 +287,6 @@ WHERE 1=1 AND TM_ProductType.isValid = 'Y' AND TM_ProductType.projectId = TM_Pro
 					AND TM_Style.isValid = 'Y'       AND TM_ProductType.styleId = TM_Style.styleId
 					AND TM_Model.isValid = 'Y'       AND TM_ProductType.modelId = TM_Model.modelId
 					AND TM_Level.isValid = 'Y'	     AND TM_ProductType.levelId = TM_Level.levelId
-ORDER BY TM_ProductType.createDate
+ORDER BY TM_ProductType.createDate;
 
 SET FOREIGN_KEY_CHECKS = 1;

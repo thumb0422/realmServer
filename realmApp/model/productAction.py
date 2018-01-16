@@ -38,3 +38,24 @@ class ProductView:
     def queryProductByType(cls,type):
         pass
 
+    '''存储图片位置表'''
+    @classmethod
+    def saveProductImgInfo(cls,**kwargs):
+        session = Session()
+        productLinkInfo = TMProductLinkInfo()
+        productLinkInfo.productCode = kwargs['productCode']
+        productLinkInfo.defaultImg = kwargs['defaultImg']
+        productImgInfos = session.query(TMProductLinkInfo).filter(TMProductLinkInfo.productCode == productLinkInfo.productCode).all()
+        for productImgInfo in productImgInfos:
+            session.delete(productImgInfo)
+        session.add(productLinkInfo)
+        try:
+            session.flush()
+            session.commit()
+            return True
+        except:
+            session.rollback()
+            return False
+        finally:
+            session.close()
+

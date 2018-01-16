@@ -45,15 +45,16 @@ def uploadProductImg():
         # token = base64.b64encode(new_filename)
         # print(token)
         token = ''
-        flash(u'上传成功')
-        # return jsonify({"errno": 0, "errmsg": "上传成功", "token": token})
+        # save db
+        productCode = request.form['productId']
+        saveDic = {"productCode":productCode,"defaultImg":new_filename}
+        if ProductView.saveProductImgInfo(**saveDic):
+            flash(u'上传成功')
+        else:
+            flash(u'上传失败')
     else:
         flash(u'上传失败')
-        # return jsonify({"errno": 1001, "errmsg": "上传失败"})
-    #return render_template('upload.html')
     return redirect(url_for('upload.upload_test'))
-
-
 
 '''图片下载'''
 @upload.route("/d/<path:filename>")
