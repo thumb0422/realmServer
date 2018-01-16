@@ -12,5 +12,10 @@
             <input type="submit">提交</input>
         </div>
     </form>
+    <p>
+        {% for message in get_flashed_messages() %}
+            {{ message }}
+        {% endfor %}
+    </p>
 </body>
 </html>

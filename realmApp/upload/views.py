@@ -1,7 +1,7 @@
 # -*- coding=utf-8 -*-
 from . import upload
 from realmApp.model.model import *
-from flask import jsonify,request,make_response,abort,render_template,send_from_directory
+from flask import jsonify,request,make_response,abort,render_template,send_from_directory,flash,redirect,url_for
 from realmApp.utility.Response import *
 from realmApp.utility import *
 from realmApp.model.productAction import *
@@ -45,9 +45,14 @@ def uploadProductImg():
         # token = base64.b64encode(new_filename)
         # print(token)
         token = ''
-        return jsonify({"errno": 0, "errmsg": "上传成功", "token": token})
+        flash(u'上传成功')
+        # return jsonify({"errno": 0, "errmsg": "上传成功", "token": token})
     else:
-        return jsonify({"errno": 1001, "errmsg": "上传失败"})
+        flash(u'上传失败')
+        # return jsonify({"errno": 1001, "errmsg": "上传失败"})
+    #return render_template('upload.html')
+    return redirect(url_for('upload.upload_test'))
+
 
 
 '''图片下载'''
