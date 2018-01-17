@@ -61,3 +61,8 @@ def uploadProductImg():
 def downloader(filename):
     dirpath = os.path.join(basedir, UPLOAD_FOLDER)  # 这里是下在目录，从工程的根目录写起，比如你要下载static/js里面的js文件，这里就要写“static/js”
     return send_from_directory(dirpath, filename, as_attachment=False)  # as_attachment=True 一定要写，不然会变成打开，而不是下载
+
+@upload.route('/q',methods = ['POST'])
+def queryProductInfo():
+    productCode = request.form['productId']
+    return ProductView.queryProductImgInfo(productCode)
