@@ -68,7 +68,15 @@ class ProductView:
             sqlText = sqlText + 'and a.productCode = :productCode'
             sqlDic['productCode'] = productCode
         res = session.execute(text(sqlText), sqlDic).fetchall()
-        productInfos = rowToArray(res)
+        productInfos = []
+        for row in res:
+            row_as_dict = dict(row)
+            resultDic = {}
+            for (k, v) in row_as_dict.items():
+                resultDic[str(k)] = str(v)
+                if (str(k) == 'defaultImg'):
+                    resultDic['imgUrl'] = 'http://127.0.0.1:5000/upload/d/' + str(v)
+            productInfos.append(resultDic)
         session.close()
         return productInfos
 
