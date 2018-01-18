@@ -62,7 +62,7 @@ class ProductView:
     @classmethod
     def queryProductImgInfo(cls,productCode):
         session = Session()
-        sqlText = '''SELECT a.productCode,a.productName,a.productCode,b.defaultImg FROM TM_Product a, TM_Product_LinkInfo b where  a.productCode=b.productCode '''
+        sqlText = '''SELECT a.productCode,a.productName,b.defaultImg FROM TM_Product a, TM_Product_LinkInfo b where  a.productCode=b.productCode '''
         sqlDic = {}
         if productCode:
             sqlText = sqlText + 'and a.productCode = :productCode'

@@ -65,4 +65,5 @@ def downloader(filename):
 @upload.route('/q',methods = ['POST'])
 def queryProductInfo():
     productCode = request.form['productId']
-    return ProductView.queryProductImgInfo(productCode)
+    productInfos = ProductView.queryProductImgInfo(productCode)
+    return render_template('upload.html',list = productInfos)

@@ -10,17 +10,18 @@
         </div>
     </form>
 
-{#    <form id="form2" method="post" action="/upload/q" enctype="multipart/form-data">#}
-{#        <div>#}
-{#            <h4>产品编码 <input id="Text1" type="text" name="productId"/></h4>#}
-{#            <input type="submit">查询</input>#}
-{#        </div>#}
-{#        <h1>Members</h1>#}
-{#        <u1>#}
-{#            {% for info in productInfos %}#}
-{#            <li>aa:{{info['productName']}}</li>#}
-{#        </u1>#}
-{#    </form>#}
+    <form id="form2" method="post" action="/upload/q" enctype="multipart/form-data">
+        <div>
+            <h4>产品编码 <input id="Text1" type="text" name="productId"/></h4>
+            <input type="submit">产品查询</input>
+        </div>
+        <h1>产品列表</h1>
+        <u1>
+            {% for info in list %}
+                <h6><li>产品代码:{{info['productCode']}}</li> <li>产品名称:{{info['productName']}}</li></h6>
+            {% endfor %}
+        </u1>
+    </form>
 
     <p>
         {% for message in get_flashed_messages() %}
