@@ -5,7 +5,6 @@ from flask import jsonify,request,make_response,abort,render_template,send_from_
 from realmApp.utility.Response import *
 from realmApp.utility import *
 from realmApp.model.productAction import *
-
 from werkzeug.utils import secure_filename
 from flask import Flask,render_template,jsonify,request
 import time
