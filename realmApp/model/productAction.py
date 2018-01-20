@@ -80,3 +80,35 @@ class ProductView:
         session.close()
         return productInfos
 
+    @classmethod
+    def saveProductTypeInfo(cls,**kwargs):
+        session = Session()
+        productType = TMProductType()
+        version = kwargs['version']
+        project = kwargs['project']
+        style = kwargs['style']
+        model = kwargs['model']
+        level = kwargs['level']
+        productType.version = version
+        productType.projectId = project
+        productType.styleId = style
+        productType.modelId = model
+        productType.levelId = level
+        productType.isValid = 'Y'
+        querys = session.query(TMProductType).filter(TMProductType.projectId == project, TMProductType.styleId == style,TMProductType.modelId == model,TMProductType.levelId == level,TMProductType.isValid == 'Y').all()
+        if querys.__len__()>0:
+            query = querys[0]
+            query.version = version
+            session.add(query)
+        else:
+            productType.typeCode = 'PT' + str(productType.projectId) + str(productType.styleId) + str(productType.modelId) + str(productType.levelId) + random_str(4)
+            session.add(productType)
+        try:
+            session.flush()
+            session.commit()
+            return True
+        except:
+            session.rollback()
+            return False
+        finally:
+            session.close()

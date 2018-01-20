@@ -3,13 +3,7 @@ from flask import render_template
 from realmApp.upload import *
 from .uForm import *
 from .ProductForm import *
-
-@upload.route('/abc')
-def queryPrp():
-    form = ProductInfoForm()
-    return render_template('productInfo.html', form=form)
-    # return render_template('productInfo.html')
-
+from realmApp.model.productAction import *
 
 @upload.route('/index',methods=['GET', 'POST'])
 def index():
@@ -37,6 +31,11 @@ def add():
         form.model.data = ''
         level = form.level.data
         form.level.data = ''
+
         '''save Data'''
-        name = '提交成功'
-    return render_template('productAdd.html', form=form, name=name)
+        productInfoDic = {'version':version,'project':project,'style':style,'model':model,'level':level}
+        if ProductView.saveProductTypeInfo(**productInfoDic):
+            name = '提交成功'
+        else:
+            name = '提交失败'
+    return render_template('productType.html', form=form, name=name)
