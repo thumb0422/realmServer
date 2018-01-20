@@ -1,9 +1,14 @@
 # -*- coding=utf-8 -*-
 from flask import render_template
 from realmApp.upload import *
-from .uForm import *
 from .ProductForm import *
 from realmApp.model.productAction import *
+
+UPLOAD_FOLDER = 'image'
+basedir = os.path.abspath(os.path.dirname(__file__))
+from manage import app
+basedir = app.root_path
+# ALLOWED_EXTENSIONS = set(['png','jpg','JPG','PNG','gif','GIF'])
 
 '''产品 信息展示'''
 @upload.route('/index',methods=['GET', 'POST'])
@@ -13,7 +18,39 @@ def index():
 '''TM_Product 产品信息 表数据维护'''
 @upload.route('/index/infoAdd',methods=['GET', 'POST'])
 def infoAdd():
-    pass
+    name = None
+    form = ProductInfoForm()
+    if form.validate_on_submit():
+        productCode = form.productCode.data
+        productName = form.productName.data
+        productTypeCode = form.typeCode.data
+        productSalePrice = form.salePrice.data
+        productImg = form.productImg.data
+
+        from werkzeug.utils import secure_filename
+        import time
+        import os
+        import base64
+        import uuid
+
+        f = productImg
+        file_dir = os.path.join(basedir, UPLOAD_FOLDER)
+        fname = secure_filename(f.filename)
+        ext = fname.rsplit('.', 1)[1]  # 获取文件后缀
+        unix_time = int(time.time())
+        new_filename = str(uuid.uuid1()) + '.' + ext  # 修改了上传的文件名
+        f.save(os.path.join(file_dir, new_filename))  # 保存文件到upload目录
+
+        product = TMProduct()
+        product.typeCode = productTypeCode
+        product.productCode = productTypeCode + productCode
+        product.productName = productName
+        product.salePrice = productSalePrice
+        if ProductView.saveProductInfo(product,new_filename):
+            name = '提交成功'
+        else:
+            name = '提交失败'
+    return render_template('productinfoAdd.html', form=form,name=name)
 
 '''TM_ProductType 产品类型 表数据维护'''
 @upload.route('/index/typeAdd',methods=['GET', 'POST'])

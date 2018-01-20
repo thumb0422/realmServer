@@ -43,3 +43,17 @@ class StaticDataView:
         session.close()
         return resultArray
 
+    @classmethod
+    def queryProdcuctTypeView(cls):
+        session = Session()
+        sqlText = '''SELECT a.typeCode,a.version,a.projectName,a.styleName,a.modelName,a.levelName FROM producttypeinfoview a WHERE 1=1 '''
+        res = session.execute(text(sqlText)).fetchall()
+        resultArray = []
+        for row in res:
+            if row.__len__() > 1:
+                k = row[0]
+                v = row[1]+' '+row[2]+' '+row[3]+' '+row[4]+' '+row[5]
+                resultTuple = (str(k), str(v))
+                resultArray.append(resultTuple)
+        session.close()
+        return resultArray

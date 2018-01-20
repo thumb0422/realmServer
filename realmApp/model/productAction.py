@@ -112,3 +112,37 @@ class ProductView:
             return False
         finally:
             session.close()
+
+    @classmethod
+    def saveProductInfo(cls,product,image):
+        session = Session()
+        productCode = product.productCode
+        defaultImg = image
+
+        '''productInfo'''
+        querys = session.query(TMProduct).filter(TMProduct.productCode == productCode,TMProduct.isValid == 'Y').all()
+        if querys.__len__() > 0:
+            query = querys[0]
+            query.productName = product.productName
+            query.salePrice = product.salePrice
+            session.add(query)
+        else:
+            session.add(product)
+
+        '''img'''
+        productLinkInfo = TMProductLinkInfo()
+        productLinkInfo.productCode = productCode
+        productLinkInfo.defaultImg = defaultImg
+        productImgInfos = session.query(TMProductLinkInfo).filter(TMProductLinkInfo.productCode == productLinkInfo.productCode).all()
+        for productImgInfo in productImgInfos:
+            session.delete(productImgInfo)
+        session.add(productLinkInfo)
+        try:
+            session.flush()
+            session.commit()
+            return True
+        except:
+            session.rollback()
+            return False
+        finally:
+            session.close()
