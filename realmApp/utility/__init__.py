@@ -59,3 +59,13 @@ def rowToArray(rows):
             resultDic[str(k)] = str(v)
         d.append(resultDic)
     return d
+
+def rowToTuple(rows):
+    d = []
+    for row in rows:
+        if row.__len__()>1:
+            k = row[0]
+            v = row[1]
+            resultTuple = (str(k),str(v))
+            d.append(resultTuple)
+    return d
