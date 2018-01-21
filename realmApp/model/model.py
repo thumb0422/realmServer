@@ -29,7 +29,7 @@ class TMGroup(Base):
 class TMLevel(Base):
     __tablename__ = 'TM_Level'
 
-    levelId = Column(Integer, primary_key=True)
+    levelId = Column(String(5), primary_key=True)
     levelName = Column(String(255))
     isValid = Column(String(1), server_default=text("'Y'"))
 
@@ -37,7 +37,7 @@ class TMLevel(Base):
 class TMModel(Base):
     __tablename__ = 'TM_Model'
 
-    modelId = Column(Integer, primary_key=True)
+    modelId = Column(String(5), primary_key=True)
     modelName = Column(String(255))
     isValid = Column(String(1), server_default=text("'Y'"))
 
@@ -76,7 +76,7 @@ class TMProduct(Base):
     productId = Column(Integer, primary_key=True)
     productCode = Column(String(30), nullable=False)
     productName = Column(String(255), nullable=False)
-    typeCode = Column(String(255), nullable=False)
+    typeCode = Column(String(30), nullable=False)
     costPrice = Column(Numeric(10, 2))
     salePrice = Column(Numeric(10, 2))
     isValid = Column(String(1), server_default=text("'Y'"))
@@ -87,14 +87,14 @@ class TMProduct(Base):
 class TMProductType(Base):
     __tablename__ = 'TM_ProductType'
 
-    typeId = Column(Integer, primary_key=True)
-    typeCode = Column(String(255), nullable=False)
+    typeCode = Column(String(30), primary_key=True)
+    typeName = Column(String(255), nullable=False)
     version = Column(String(255))
-    projectId = Column(Integer)
-    styleId = Column(Integer)
-    modelId = Column(Integer)
-    levelId = Column(Integer)
-    isValid = Column(String(1))
+    projectId = Column(String(5))
+    styleId = Column(String(5))
+    modelId = Column(String(5))
+    levelId = Column(String(5))
+    isValid = Column(String(1), server_default=text("'Y'"))
     createDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP"))
     updateDate = Column(DateTime)
 
@@ -113,7 +113,7 @@ class TMProductLinkInfo(Base):
 class TMProject(Base):
     __tablename__ = 'TM_Project'
 
-    projectId = Column(Integer, primary_key=True)
+    projectId = Column(String(5), primary_key=True)
     projectName = Column(String(255))
     isValid = Column(String(1), server_default=text("'Y'"))
 
@@ -121,7 +121,7 @@ class TMProject(Base):
 class TMStyle(Base):
     __tablename__ = 'TM_Style'
 
-    styleId = Column(Integer, primary_key=True)
+    styleId = Column(String(5), primary_key=True)
     styleName = Column(String(255))
     isValid = Column(String(1), server_default=text("'Y'"))
 

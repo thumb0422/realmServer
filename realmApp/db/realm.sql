@@ -11,7 +11,7 @@
  Target Server Version : 50710
  File Encoding         : 65001
 
- Date: 15/01/2018 22:31:18
+ Date: 21/01/2018 16:17:57
 */
 
 SET NAMES utf8mb4;
@@ -47,7 +47,7 @@ CREATE TABLE `TM_Group` (
 -- ----------------------------
 DROP TABLE IF EXISTS `TM_Level`;
 CREATE TABLE `TM_Level` (
-  `levelId` VARCHAR (5) NOT NULL COMMENT '层次',
+  `levelId` varchar(5) NOT NULL COMMENT '层次',
   `levelName` varchar(255) DEFAULT NULL COMMENT '单层、双层',
   `isValid` varchar(1) DEFAULT 'Y',
   PRIMARY KEY (`levelId`)
@@ -66,7 +66,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `TM_Model`;
 CREATE TABLE `TM_Model` (
-  `modelId` VARCHAR (5) NOT NULL ,
+  `modelId` varchar(5) NOT NULL,
   `modelName` varchar(255) DEFAULT NULL,
   `isValid` varchar(1) DEFAULT 'Y',
   PRIMARY KEY (`modelId`)
@@ -140,6 +140,24 @@ CREATE TABLE `TM_Product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for TM_ProductType
+-- ----------------------------
+DROP TABLE IF EXISTS `TM_ProductType`;
+CREATE TABLE `TM_ProductType` (
+  `typeCode` varchar(30) NOT NULL,
+  `typeName` varchar(255) NOT NULL,
+  `version` varchar(255) DEFAULT NULL COMMENT '版本名称',
+  `projectId` varchar(5) DEFAULT NULL COMMENT '项目',
+  `styleId` varchar(5) DEFAULT NULL COMMENT '款式',
+  `modelId` varchar(5) DEFAULT NULL COMMENT '型号',
+  `levelId` varchar(5) DEFAULT NULL COMMENT '层次',
+  `isValid` varchar(1) DEFAULT 'Y',
+  `createDate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updateDate` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`typeCode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for TM_Product_LinkInfo
 -- ----------------------------
 DROP TABLE IF EXISTS `TM_Product_LinkInfo`;
@@ -154,30 +172,11 @@ CREATE TABLE `TM_Product_LinkInfo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for TM_ProductType
--- ----------------------------
-DROP TABLE IF EXISTS `TM_ProductType`;
-CREATE TABLE `TM_ProductType` (
-  `typeId` int(11) NOT NULL AUTO_INCREMENT,
-  `typeCode` varchar(30) NOT NULL,
-  `version` varchar(255) DEFAULT NULL COMMENT '版本名称',
-  `projectId` VARCHAR (5) DEFAULT NULL COMMENT '项目',
-  `styleId` VARCHAR(5) DEFAULT NULL COMMENT '款式',
-  `modelId` VARCHAR (5) DEFAULT NULL COMMENT '型号',
-  `levelId` VARCHAR (5) DEFAULT NULL COMMENT '层次',
-  `isValid` varchar(1)  DEFAULT 'Y',
-  `createDate` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updateDate` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`typeId`),
-  KEY `typeCode` (`typeCode`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- ----------------------------
 -- Table structure for TM_Project
 -- ----------------------------
 DROP TABLE IF EXISTS `TM_Project`;
 CREATE TABLE `TM_Project` (
-  `projectId` VARCHAR (5) NOT NULL,
+  `projectId` varchar(5) NOT NULL,
   `projectName` varchar(255) DEFAULT NULL,
   `isValid` varchar(1) DEFAULT 'Y',
   PRIMARY KEY (`projectId`)
@@ -197,11 +196,11 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `TM_Style`;
 CREATE TABLE `TM_Style` (
-  `styleId` VARCHAR (5) NOT NULL,
+  `styleId` varchar(5) NOT NULL,
   `styleName` varchar(255) DEFAULT NULL COMMENT '款式(四叉勾、打孔 、、)',
   `isValid` varchar(1) DEFAULT 'Y',
   PRIMARY KEY (`styleId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of TM_Style
@@ -233,17 +232,6 @@ CREATE TABLE `TM_User` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for TM_User_Status
--- ----------------------------
-DROP TABLE IF EXISTS `TM_User_Status`;
-CREATE TABLE `TM_User_Status` (
-  `userId` int(11) NOT NULL,
-  `isLogin` varchar(1) DEFAULT 'Y',
-  `updateDate` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
 -- Table structure for TM_UserLog
 -- ----------------------------
 DROP TABLE IF EXISTS `TM_UserLog`;
@@ -257,13 +245,23 @@ CREATE TABLE `TM_UserLog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for TM_User_Status
+-- ----------------------------
+DROP TABLE IF EXISTS `TM_User_Status`;
+CREATE TABLE `TM_User_Status` (
+  `userId` int(11) NOT NULL,
+  `isLogin` varchar(1) DEFAULT 'Y',
+  `updateDate` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- View structure for ProductTypeInfoView
 -- ----------------------------
 DROP VIEW IF EXISTS `ProductTypeInfoView`;
 CREATE
 VIEW `ProductTypeInfoView` AS
 SELECT
-TM_ProductType.typeId,
 TM_ProductType.typeCode,
 TM_ProductType.version,
 TM_Project.projectName,
