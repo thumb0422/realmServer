@@ -13,10 +13,10 @@ basedir = app.root_path
 '''产品 信息展示'''
 @upload.route('/index',methods=['GET', 'POST'])
 def index():
-    pass
+    return render_template('productIndex.html')
 
 '''TM_Product 产品信息 表数据维护'''
-@upload.route('/index/infoAdd',methods=['GET', 'POST'])
+@upload.route('/infoAdd',methods=['GET', 'POST'])
 def infoAdd():
     name = None
     form = ProductInfoForm()
@@ -59,10 +59,10 @@ def infoAdd():
             name = '提交成功'
         else:
             name = '提交失败'
-    return render_template('productinfoAdd.html', form=form,name=name)
+    return render_template('productInfoAdd.html', form=form,name=name)
 
 '''TM_ProductType 产品类型 表数据维护'''
-@upload.route('/index/typeAdd',methods=['GET', 'POST'])
+@upload.route('/typeAdd',methods=['GET', 'POST'])
 def typeAdd():
     name = None
     form = ProductTypeForm()
