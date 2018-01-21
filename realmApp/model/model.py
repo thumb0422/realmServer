@@ -88,7 +88,7 @@ class TMProductType(Base):
     __tablename__ = 'TM_ProductType'
 
     typeCode = Column(String(30), primary_key=True)
-    typeName = Column(String(255), nullable=False)
+    typeName = Column(String(255))
     version = Column(String(255))
     projectId = Column(String(5))
     styleId = Column(String(5))

@@ -25,7 +25,15 @@ def infoAdd():
         productName = form.productName.data
         productTypeCode = form.typeCode.data
         productSalePrice = form.salePrice.data
+        productCostPrice = form.costPrice.data
         productImg = form.productImg.data
+        '''清空数据'''
+        form.productCode.data = ''
+        form.productName.data = ''
+        form.typeCode.data = ''
+        form.salePrice.data = ''
+        form.costPrice.data = ''
+        form.productImg.data = ''
 
         from werkzeug.utils import secure_filename
         import time
@@ -46,6 +54,7 @@ def infoAdd():
         product.productCode = productTypeCode + productCode
         product.productName = productName
         product.salePrice = productSalePrice
+        product.costPrice = productCostPrice
         if ProductView.saveProductInfo(product,new_filename):
             name = '提交成功'
         else:

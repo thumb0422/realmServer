@@ -125,6 +125,7 @@ class ProductView:
             query = querys[0]
             query.productName = product.productName
             query.salePrice = product.salePrice
+            query.costPrice = product.costPrice
             session.add(query)
         else:
             session.add(product)
