@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField,SelectField,FloatField
+from wtforms import StringField, SubmitField,SelectField,FloatField,PasswordField
 from wtforms.validators import Required,DataRequired,Length
 from flask_wtf.file import FileField,FileRequired,FileAllowed
 from realmApp.model.staticAction import *
@@ -23,3 +23,8 @@ class ProductInfoForm(FlaskForm):
     costPrice   = FloatField(u'成本价格', validators=[DataRequired(u'必须为数字类型')])
     salePrice   = FloatField(u'销售价格',validators=[DataRequired(u'必须为数字类型')])
     submit = SubmitField(u'提交')
+
+class LoginForm(FlaskForm):
+    username = StringField(label=u'用户名',validators=[DataRequired()])
+    password = PasswordField(label=u'密码',validators=[DataRequired()])
+    submit = SubmitField(label=u'提交')

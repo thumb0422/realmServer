@@ -1,5 +1,5 @@
 # -*- coding=utf-8 -*-
-from flask import render_template
+from flask import render_template,flash,url_for,redirect
 from realmApp.upload import *
 from .ProductForm import *
 from realmApp.model.productAction import *
@@ -9,6 +9,13 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 from manage import app
 basedir = app.root_path
 # ALLOWED_EXTENSIONS = set(['png','jpg','JPG','PNG','gif','GIF'])
+
+@upload.route('/login',methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    flash(u'登陆成功')
+    # return redirect(url_for('upload.infoAdd'))
+    return render_template('login.html', title=u'登录', form=form)
 
 '''产品 信息展示'''
 @upload.route('/index',methods=['GET', 'POST'])
