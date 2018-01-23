@@ -63,10 +63,11 @@ def infoAdd():
         product.salePrice = productSalePrice
         product.costPrice = productCostPrice
         if ProductView.saveProductInfo(product,new_filename):
-            name = '提交成功'
+            message = '提交成功'
         else:
-            name = '提交失败'
-    return render_template('productInfoAdd.html', form=form,name=name)
+            message = '提交失败'
+        flash(message)
+    return render_template('productInfoAdd.html', form=form,title=u'产品信息维护')
 
 '''TM_ProductType 产品类型 表数据维护'''
 @upload.route('/typeAdd',methods=['GET', 'POST'])
@@ -89,7 +90,8 @@ def typeAdd():
         '''save Data'''
         productInfoDic = {'version':version,'project':project,'style':style,'model':model,'level':level}
         if ProductView.saveProductTypeInfo(**productInfoDic):
-            name = '提交成功'
+            message = '提交成功'
         else:
-            name = '提交失败'
-    return render_template('productType.html', form=form, name=name)
+            message = '提交失败'
+        flash(message)
+    return render_template('productType.html', form=form,title=u'产品类型维护')

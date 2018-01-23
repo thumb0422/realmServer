@@ -145,7 +145,7 @@ CREATE TABLE `TM_Product` (
 DROP TABLE IF EXISTS `TM_ProductType`;
 CREATE TABLE `TM_ProductType` (
   `typeCode` varchar(30) NOT NULL,
-  `typeName` varchar(255) NOT NULL,
+  `typeName` varchar(255) DEFAULT NULL,
   `version` varchar(255) DEFAULT NULL COMMENT '版本名称',
   `projectId` varchar(5) DEFAULT NULL COMMENT '项目',
   `styleId` varchar(5) DEFAULT NULL COMMENT '款式',
