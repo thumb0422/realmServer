@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+    <div class="page-header">
+        <div class="container">
+            <h1>产品维护首页</h1>
+        </div>
+    </div>
+    <div class="container">
+{#        {% for message in get_flashed_messages() %}#}
+{#            <div class="alert-info">{{ message }}</div>#}
+{#        {% endfor %}#}
+{#        <form method="POST">#}
+{#            {{ wtf.quick_form(form) }}#}
+{#        </form>#}
+        <body>
+        {{nav.top.render(id='top-navbar')}}
+{#         <h1>{{msg|default('Welcome')}}</h1>#}
+        </body>
+    </div>
+{% endblock %}

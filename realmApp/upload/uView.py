@@ -20,7 +20,7 @@ def login():
 '''产品 信息展示'''
 @upload.route('/index',methods=['GET', 'POST'])
 def index():
-    return render_template('productIndex.html')
+    return render_template('uploadIndex.html')
 
 '''TM_Product 产品信息 表数据维护'''
 @upload.route('/infoAdd',methods=['GET', 'POST'])
