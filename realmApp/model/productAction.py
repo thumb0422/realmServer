@@ -68,7 +68,7 @@ class ProductView:
             sqlText = sqlText + 'and a.productCode = :productCode'
             sqlDic['productCode'] = productCode
         res = session.execute(text(sqlText), sqlDic).fetchall()
-        productInfos = [{"productCode":"产品代码","productName":"产品名称","defaultImg":"图片"}]
+        productInfos = [{"productCode":"产品代码","productName":"产品名称","imgUrl":"图片"}]
         for row in res:
             row_as_dict = dict(row)
             resultDic = {}
