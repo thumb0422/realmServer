@@ -17,7 +17,7 @@ nav = Nav()
 nav.register_element(
     'top',
     Navbar(
-        View('产品展示', 'upload.index'),
+        View('产品展示', 'upload.infos'),
         View('产品信息维护', 'upload.infoAdd'),
         View('产品类型维护', 'upload.typeAdd'),
         # Subgroup('Products',

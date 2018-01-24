@@ -10,6 +10,11 @@ from manage import app
 basedir = app.root_path
 # ALLOWED_EXTENSIONS = set(['png','jpg','JPG','PNG','gif','GIF'])
 
+'''产品首页'''
+@upload.route('/index',methods=['GET', 'POST'])
+def index():
+    return render_template('uploadIndex.html')
+
 @upload.route('/login',methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -18,9 +23,13 @@ def login():
     return render_template('login.html', title=u'登录', form=form)
 
 '''产品 信息展示'''
-@upload.route('/index',methods=['GET', 'POST'])
-def index():
-    return render_template('uploadIndex.html')
+@upload.route('/infos',methods=['GET', 'POST'])
+def infos():
+    list = []
+    # productCode = request.form['productId']
+    productCode = ''
+    list = ProductView.queryProductImgInfo(productCode)
+    return render_template('productInfo.html',title=u'产品 信息展示',list = list)
 
 '''TM_Product 产品信息 表数据维护'''
 @upload.route('/infoAdd',methods=['GET', 'POST'])
