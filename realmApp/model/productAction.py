@@ -75,7 +75,7 @@ class ProductView:
             for (k, v) in row_as_dict.items():
                 resultDic[str(k)] = str(v)
                 if (str(k) == 'defaultImg'):
-                    resultDic['imgUrl'] = 'http://127.0.0.1:5000/upload/d/' + str(v)
+                    resultDic['imgUrl'] = '/upload/d/' + str(v)
             productInfos.append(resultDic)
         session.close()
         return productInfos

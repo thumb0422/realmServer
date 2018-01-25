@@ -1,5 +1,5 @@
 # -*- coding=utf-8 -*-
-from flask import render_template,flash,url_for,redirect
+from flask import render_template,flash,url_for,redirect,abort
 from realmApp.upload import *
 from .ProductForm import *
 from realmApp.model.productAction import *
@@ -17,6 +17,7 @@ def index():
 
 @upload.route('/login',methods=['GET', 'POST'])
 def login():
+
     form = LoginForm()
     flash(u'登陆成功')
     # return redirect(url_for('upload.infoAdd'))
