@@ -8,12 +8,11 @@
     </div>
     <div class="container">
         <table class="table table-striped">
-            {#<caption>{{ title}}</caption>#}
             <thead>
             <tr>
-                <th>{{ list[0]['productCode'] }}</th>
-                <th>{{ list[0]['productName'] }}</th>
-                <th>{{ list[0]['imgUrl'] }}</th>
+                <th>{{ headlist['productCode'] }}</th>
+                <th>{{ headlist['productName'] }}</th>
+                <th>{{ headlist['imgUrl'] }}</th>
             </tr>
             </thead>
             <tbody>
@@ -21,7 +20,7 @@
                 <tr>
                     <td>{{ info['productCode'] }}</td>
                     <td>{{ info['productName'] }}</td>
-                    <td>{{ info['imgUrl'] }}</td>
+                    <td><img src="{{ info['imgUrl'] }}" , width="100" ,height="20"/></td>
                 </tr>
             {% endfor %}
             </tbody>

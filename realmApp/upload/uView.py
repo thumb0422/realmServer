@@ -28,8 +28,9 @@ def infos():
     list = []
     # productCode = request.form['productId']
     productCode = ''
+    headlist = {"productCode": "产品代码", "productName": "产品名称", "imgUrl": "图片显示"}
     list = ProductView.queryProductImgInfo(productCode)
-    return render_template('productInfo.html',title=u'产品 信息展示',list = list)
+    return render_template('productInfo.html',title=u'产品 信息展示',headlist=headlist,list = list)
 
 '''TM_Product 产品信息 表数据维护'''
 @upload.route('/infoAdd',methods=['GET', 'POST'])
