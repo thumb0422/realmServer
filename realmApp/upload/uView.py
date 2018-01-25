@@ -13,7 +13,7 @@ basedir = app.root_path
 '''产品首页'''
 @upload.route('/index',methods=['GET', 'POST'])
 def index():
-    return render_template('uploadIndex.html')
+    return render_template('productIndex.html',title =u'首页')
 
 @upload.route('/login',methods=['GET', 'POST'])
 def login():
