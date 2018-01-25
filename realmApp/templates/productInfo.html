@@ -8,23 +8,23 @@
     </div>
     <div class="container">
         <table class="table table-striped">
-	{#<caption>{{ title}}</caption>#}
-	<thead>
-		<tr>
-			<th>{{list[0]['productCode']}}</th>
-			<th>{{list[0]['productName']}}</th>
-			<th>{{list[0]['imgUrl']}}</th>
-		</tr>
-	</thead>
-	<tbody>
-        {% for info in list %}
+            {#<caption>{{ title}}</caption>#}
+            <thead>
             <tr>
-			<td>{{info['productCode']}}</td>
-			<td>{{info['productName']}}</td>
-			<td>{{info['imgUrl']}}</td>
-		</tr>
-        {% endfor %}
-	</tbody>
-</table>
+                <th>{{ list[0]['productCode'] }}</th>
+                <th>{{ list[0]['productName'] }}</th>
+                <th>{{ list[0]['imgUrl'] }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for info in list %}
+                <tr>
+                    <td>{{ info['productCode'] }}</td>
+                    <td>{{ info['productName'] }}</td>
+                    <td>{{ info['imgUrl'] }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}

@@ -8,15 +8,15 @@
         </div>
     </div>
     <div class="container">
-{#        {% for message in get_flashed_messages() %}#}
-{#            <div class="alert-info">{{ message }}</div>#}
-{#        {% endfor %}#}
-{#        <form method="POST">#}
-{#            {{ wtf.quick_form(form) }}#}
-{#        </form>#}
+        {#        {% for message in get_flashed_messages() %}#}
+        {#            <div class="alert-info">{{ message }}</div>#}
+        {#        {% endfor %}#}
+        {#        <form method="POST">#}
+        {#            {{ wtf.quick_form(form) }}#}
+        {#        </form>#}
         <body>
-        {{nav.top.render(id='top-navbar')}}
-{#         <h1>{{msg|default('Welcome')}}</h1>#}
+        {{ nav.top.render(id='top-navbar') }}
+        {#         <h1>{{msg|default('Welcome')}}</h1>#}
         </body>
     </div>
 {% endblock %}
