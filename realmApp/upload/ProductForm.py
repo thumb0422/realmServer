@@ -16,9 +16,10 @@ class ProductTypeForm(FlaskForm):
 
 
 class ProductInfoForm(FlaskForm):
-    productCode = StringField(u'产品代码', validators=[DataRequired(''),Length(min=4,max=4,message=u'必须等于4字符！')])
+    from ..utility import random_str
+    productCode = StringField(u'产品代码', validators=[DataRequired(''),Length(min=4,max=4,message=u'必须等于4字符！')],render_kw={"placeholder":random_str(4)})
     productName = StringField(u'产品名称', validators=[DataRequired(''),Length(min=4,max=200,message=u'必须介于4-200字符！')])
-    typeCode    = SelectField(u'产品类型',choices=StaticDataView.queryProdcuctTypeView(), validators=[DataRequired()])  # key 不能是int
+    typeCode    = SelectField(u'产品类型', validators=[DataRequired()])  # key 不能是int
     productImg  = FileField(u'选择图片',validators=[FileRequired(u'请选择图片'),FileAllowed(['png','jpg','jpeg'],u'必须为图片类型')])
     costPrice   = FloatField(u'成本价格', validators=[DataRequired(u'必须为数字类型')])
     salePrice   = FloatField(u'销售价格',validators=[DataRequired(u'必须为数字类型')])

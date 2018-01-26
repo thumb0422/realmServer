@@ -38,6 +38,7 @@ def infos():
 def infoAdd():
     name = None
     form = ProductInfoForm()
+    form.typeCode.choices = [(v[0], v[1]) for v in StaticDataView.queryProdcuctTypeView()]
     if form.validate_on_submit():
         productCode = form.productCode.data
         productName = form.productName.data
@@ -85,6 +86,12 @@ def infoAdd():
 def typeAdd():
     name = None
     form = ProductTypeForm()
+    ''' 如果这些数据变化比较频繁，需要放开这个以便能实时更新
+    form.project.choices = [(v[0], v[1]) for v in StaticDataView.queryProdcuctProjectView()]
+    form.style.choices = [(v[0], v[1]) for v in StaticDataView.queryProdcuctStyleView()]
+    form.model.choices = [(v[0], v[1]) for v in StaticDataView.queryProdcuctModelView()]
+    form.level.choices = [(v[0], v[1]) for v in StaticDataView.queryProdcuctLevelView()]
+    '''
     # 如果提交的数据验证通过，则返回True
     if form.validate_on_submit():
         version = form.version.data
