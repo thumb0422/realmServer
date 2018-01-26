@@ -1,10 +1,10 @@
 # -*- coding=utf-8 -*-
-from . import upload
-from realmApp.model.model import *
 from flask import jsonify,request,make_response,abort,render_template,send_from_directory,flash,redirect,url_for
-from realmApp.utility.Response import *
-from realmApp.utility import *
-from realmApp.model.productAction import *
+from . import upload
+from ..model.model import *
+from ..utility.Response import *
+from ..utility import *
+from ..model.productAction import *
 from werkzeug.utils import secure_filename
 from flask import Flask,render_template,jsonify,request
 import time

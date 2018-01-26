@@ -1,16 +1,16 @@
 #-*- coding: UTF-8 -*-
 from flask import jsonify,request
 from sqlalchemy import func,select
-from realmApp import db
-from realmApp.utility import *
-from realmApp.utility.Response import *
+from .. import db
+from ..utility import *
+from ..utility.Response import *
 import datetime
 
 
 from sqlalchemy import Column,text
 from sqlalchemy.types import *
 from sqlalchemy.ext.declarative import declarative_base
-from realmApp.utility import *
+from ..utility import *
 BaseModel = declarative_base()
 
 from sqlalchemy import create_engine

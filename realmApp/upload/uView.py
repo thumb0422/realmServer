@@ -1,8 +1,8 @@
 # -*- coding=utf-8 -*-
 from flask import render_template,flash,url_for,redirect,abort
-from realmApp.upload import *
+from ..upload import *
 from .ProductForm import *
-from realmApp.model.productAction import *
+from ..model.productAction import *
 
 UPLOAD_FOLDER = 'image'
 basedir = os.path.abspath(os.path.dirname(__file__))

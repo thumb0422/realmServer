@@ -1,10 +1,10 @@
 # coding: utf-8
 from sqlalchemy.ext.declarative import DeclarativeMeta
-from realmApp.model import *
-from realmApp.model.model import *
-from realmApp.utility import *
-from realmApp.utility.Response import *
-from realmApp.utility.alchemyEncoder import *
+from ..model import *
+from ..model.model import *
+from ..utility import *
+from ..utility.Response import *
+from ..utility.alchemyEncoder import *
 
 class ProductView:
 

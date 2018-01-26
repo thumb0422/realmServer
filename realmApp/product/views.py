@@ -1,10 +1,10 @@
 # -*- coding=utf-8 -*-
-from . import product
-from realmApp.model.model import *
 from flask import jsonify,request,make_response,abort
-from realmApp.utility.Response import *
-from realmApp.utility import *
-from realmApp.model.productAction import *
+from . import product
+from ..model.model import *
+from ..utility.Response import *
+from ..utility import *
+from ..model.productAction import *
 
 
 @product.route('/')

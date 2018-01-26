@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField,SelectField,FloatField,PasswordField
 from wtforms.validators import Required,DataRequired,Length
 from flask_wtf.file import FileField,FileRequired,FileAllowed
-from realmApp.model.staticAction import *
+from ..model.staticAction import *
 import os
 
 class ProductTypeForm(FlaskForm):

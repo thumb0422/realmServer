@@ -3,7 +3,7 @@
 from sqlalchemy import Column,text
 from sqlalchemy.types import *
 from sqlalchemy.ext.declarative import declarative_base
-from realmApp.utility import *
+from ..utility import *
 BaseModel = declarative_base()
 
 from sqlalchemy import create_engine

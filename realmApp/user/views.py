@@ -1,9 +1,9 @@
 # -*- coding=utf-8 -*-
 from . import user
 from flask import jsonify,request,make_response,abort
-from realmApp.utility.Response import *
-from realmApp.utility import *
-from realmApp.model.userAction import *
+from ..utility.Response import *
+from ..utility import *
+from ..model.userAction import *
 
 @user.route('/')
 def index():

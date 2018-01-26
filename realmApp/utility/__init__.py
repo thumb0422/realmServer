@@ -2,6 +2,7 @@
 '''
  utility
 '''
+
 from random import Random
 import json,decimal
 import datetime

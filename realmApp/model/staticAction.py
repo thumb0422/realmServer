@@ -1,9 +1,9 @@
 # coding: utf-8
 #常量数据查询
-from realmApp.model import *
-from realmApp.model.model import *
-from realmApp.utility import *
-from realmApp.utility.alchemyEncoder import *
+from ..model import *
+from ..model.model import *
+from ..utility import *
+from ..utility.alchemyEncoder import *
 
 class StaticDataView:
 

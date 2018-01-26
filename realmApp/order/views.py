@@ -1,13 +1,8 @@
 # -*- coding=utf-8 -*-
 from flask import jsonify,request,make_response,abort
 from . import order
-from random import random, randint
 from ..model.orderModel import *
 import json
-
-@order.errorhandler(404)
-def not_found(error):
-    return make_response(jsonify({'error':'Not Found'}),404)
 
 @order.route('/')
 def index():

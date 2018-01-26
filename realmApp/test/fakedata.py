@@ -1,7 +1,7 @@
 #-*- coding: UTF-8 -*-
-from realmApp.model.model import *
-from realmApp.utility import *
-from realmApp.model import *
+from ..model.model import *
+from ..utility import *
+from ..model import *
 
 
 for i in range(10):
