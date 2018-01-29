@@ -2,7 +2,7 @@
 from sqlalchemy import Column, DateTime, Integer, Numeric, String, Text, text
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from . import loginManager,db
+from realmApp.upload.userAdmin import loginManager,db
 from .action import UserAdminAction
 
 class TMAdminUser(UserMixin, db.Model):

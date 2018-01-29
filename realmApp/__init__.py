@@ -29,4 +29,7 @@ def create_app(config_name):
     from .upload import upload as upload_blueprint
     app.register_blueprint(upload_blueprint, url_prefix='/upload')
 
+    from .upload.userAdmin import admin as userAdmin_blueprint
+    app.register_blueprint(userAdmin_blueprint, url_prefix='/upload/admin')
+
     return app
