@@ -1,6 +1,7 @@
 # coding: utf-8
-from realmApp.upload.userAdmin import Session
-from .model import TMAdminUser
+# from . import Session
+from ..model import Session
+from ..model.model import TMAdminUser
 
 class UserAdminAction:
 

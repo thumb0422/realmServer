@@ -10,4 +10,3 @@ import config
 
 enginee = create_engine(config.MySQLConfig.SQLALCHEMY_DATABASE_URI,echo=True)
 Session = sessionmaker(bind=enginee)
-# session = Session()

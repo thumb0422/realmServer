@@ -158,3 +158,26 @@ class TMUserStatu(Base):
     userId = Column(Integer, primary_key=True)
     isLogin = Column(String(1), server_default=text("'Y'"))
     updateDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP"))
+
+
+class TMAdminUser(Base):
+    __tablename__ = 'TM_Admin_User'
+    userCode   = Column(String(64), primary_key=True)
+    userName   = Column(String(255))
+    userPwd    = Column(String(128))
+    isValid    = Column(String(1), server_default=text("'Y'"))
+    phone      = Column(String(30), index=True, unique=True)
+    email      = Column(String(30), index=True, unique=True)
+    createDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP"))
+    updateDate = Column(DateTime)
+
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
+
+    def set_userPwd(self, password):
+        from werkzeug.security import generate_password_hash
+        self.userPwd = generate_password_hash(password)
+
+    def check_userPwd(self, password):
+        from werkzeug.security import check_password_hash
+        return check_password_hash(self.userPwd, password)

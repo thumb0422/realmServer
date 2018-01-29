@@ -13,6 +13,12 @@ manager = Manager(app)
 bootstrap = Bootstrap(app)
 migrate = Migrate(app,db)
 
+from flask_login import LoginManager
+
+loginManager = LoginManager()
+loginManager.init_app(app)
+loginManager.login_view = '/admin/login'
+
 manager.add_command('db', MigrateCommand)   #在终端环境下添加一个db命令
 
 from flask import render_template

@@ -3,8 +3,9 @@
 提供给app作为apiServer
 '''
 
-from flask import Flask, session
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+
 from config import config
 
 db = SQLAlchemy()
@@ -29,7 +30,7 @@ def create_app(config_name):
     from .upload import upload as upload_blueprint
     app.register_blueprint(upload_blueprint, url_prefix='/upload')
 
-    from .upload.userAdmin import admin as userAdmin_blueprint
-    app.register_blueprint(userAdmin_blueprint, url_prefix='/upload/admin')
+    from .userAdmin import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint, url_prefix='/admin')
 
     return app
