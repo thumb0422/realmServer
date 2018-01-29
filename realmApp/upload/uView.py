@@ -15,14 +15,6 @@ basedir = app.root_path
 def index():
     return render_template('productIndex.html',title =u'首页')
 
-@upload.route('/login',methods=['GET', 'POST'])
-def login():
-
-    form = LoginForm()
-    flash(u'登陆成功')
-    # return redirect(url_for('upload.infoAdd'))
-    return render_template('login.html', title=u'登录', form=form)
-
 '''产品 信息展示'''
 @upload.route('/infos',methods=['GET', 'POST'])
 def infos():
