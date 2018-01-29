@@ -256,6 +256,22 @@ CREATE TABLE `TM_User_Status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for TM_Admin_User
+-- ----------------------------
+DROP TABLE IF EXISTS `TM_Admin_User`;
+CREATE TABLE `TM_Admin_User` (
+  `userCode` varchar(30) NOT NULL,
+  `userName` varchar(100) DEFAULT NULL,
+  `userPwd` varchar(255) DEFAULT NULL,
+  `isValid` varchar(1) DEFAULT 'Y',
+  `phone` varchar(30) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `createDate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updateDate` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`userCode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- View structure for ProductTypeInfoView
 -- ----------------------------
 DROP VIEW IF EXISTS `ProductTypeInfoView`;

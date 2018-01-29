@@ -158,3 +158,16 @@ class TMUserStatu(Base):
     userId = Column(Integer, primary_key=True)
     isLogin = Column(String(1), server_default=text("'Y'"))
     updateDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP"))
+
+
+class TMAdminUser(Base):
+    __tablename__ = 'TM_Admin_User'
+
+    userCode = Column(String(30), primary_key=True)
+    userName = Column(String(100))
+    userPwd = Column(String(255))
+    isValid = Column(String(1), server_default=text("'Y'"))
+    phone = Column(String(30))
+    email = Column(String(255))
+    createDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP"))
+    updateDate = Column(DateTime)
