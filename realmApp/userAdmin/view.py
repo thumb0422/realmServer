@@ -6,6 +6,7 @@ from werkzeug.urls import url_parse
 from . import admin
 from .action import UserAdminAction
 from .form import LoginForm, RegistrationForm
+from ..model.model import TMAdminUser
 
 
 @admin.route('/')
@@ -31,8 +32,8 @@ def login():
         return redirect(url_for('/admin.index'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = UserAdminAction.queryUserAdmin(userCode=form.username.data)
-        if user is None or not user.check_password(form.password.data):
+        user = UserAdminAction.queryUserAdmin(userName=form.username.data)
+        if user is None or not user.check_userPwd(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('/admin.login'))
         login_user(user, remember=form.remember_me.data)
@@ -55,8 +56,16 @@ def register():
         return redirect(url_for('/admin.index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = UserAdminAction.queryUserAdmin(userCode=form.username.data)
-        UserAdminAction.registerUserAdmin(user)
-        flash('Congratulations, you are now a registered user!')
+        adminUser = TMAdminUser()
+        from ..utility import random_str
+        adminUser.userCode = 'AU' + random_str(8)
+        adminUser.set_userPwd(form.password.data)
+        adminUser.email = form.email.data
+        adminUser.isValid = 'Y'
+        adminUser.userName = form.username.data
+        if UserAdminAction.registerUserAdmin(adminUser):
+            flash(u'恭喜,注册成功!')
+        else:
+            flash(u'注册失败!')
         return redirect(url_for('/admin.login'))
     return render_template('userAdmin/register.html', title='Register', form=form)

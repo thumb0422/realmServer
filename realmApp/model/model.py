@@ -171,8 +171,8 @@ class TMAdminUser(Base):
     createDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP"))
     updateDate = Column(DateTime)
 
-    def __repr__(self):
-        return '<User {}>'.format(self.username)
+    # def __repr__(self):
+    #     return '<User {}>'.format(self.username)
 
     def set_userPwd(self, password):
         from werkzeug.security import generate_password_hash
