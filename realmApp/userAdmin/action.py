@@ -12,6 +12,12 @@ class UserAdminAction:
         return user
 
     @classmethod
+    def queryUserAdminByCode(cls, userCode):
+        session = Session()
+        user = session.query(TMAdminUser).filter(TMAdminUser.userCode == userCode).first()
+        return user
+
+    @classmethod
     def registerUserAdmin(cls,adminUser):
         session = Session()
         session.add(adminUser)

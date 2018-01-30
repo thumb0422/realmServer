@@ -159,8 +159,8 @@ class TMUserStatu(Base):
     isLogin = Column(String(1), server_default=text("'Y'"))
     updateDate = Column(DateTime, server_default=text("CURRENT_TIMESTAMP"))
 
-
-class TMAdminUser(Base):
+from flask_login import UserMixin
+class TMAdminUser(UserMixin,Base):
     __tablename__ = 'TM_Admin_User'
     userCode   = Column(String(64), primary_key=True)
     userName   = Column(String(255))
@@ -181,3 +181,12 @@ class TMAdminUser(Base):
     def check_userPwd(self, password):
         from werkzeug.security import check_password_hash
         return check_password_hash(self.userPwd, password)
+
+    def is_authenticated(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return self.userCode

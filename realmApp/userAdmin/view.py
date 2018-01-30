@@ -69,3 +69,8 @@ def register():
             flash(u'注册失败!')
         return redirect(url_for('/admin.login'))
     return render_template('userAdmin/register.html', title='Register', form=form)
+
+from .. import loginManager
+@loginManager.user_loader
+def load_user(user_id):
+        return UserAdminAction.queryUserAdminByCode(user_id)
