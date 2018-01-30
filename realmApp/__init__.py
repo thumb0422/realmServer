@@ -19,10 +19,16 @@ def create_app(config_name):
     db.init_app(app)
     app.config['SECRET_KEY'] = '0okmnji98uhb'
 
-    loginManager.init_app(app)
     loginManager.login_view = '/admin/login'
     loginManager.session_protection = "strong"
+    loginManager.login_message = u"请登录！"
+    loginManager.login_message_category = "info"
+    from datetime import timedelta
+    '''cookie 的默认有效期'''
+    loginManager.remember_cookie_duration = timedelta(days=1)
+    loginManager.init_app(app)
     # 可以设置None,'basic','strong'  以提供不同的安全等级,一般设置strong,如果发现异常会登出用户
+
     with app.app_context():
         db.create_all()
 

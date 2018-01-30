@@ -1,5 +1,6 @@
 # -*- coding=utf-8 -*-
 from flask import render_template,flash,url_for,redirect,abort
+from flask_login import login_required
 from ..upload import *
 from .ProductForm import *
 from ..model.productAction import *
@@ -12,6 +13,7 @@ basedir = app.root_path
 
 '''产品首页'''
 @upload.route('/index',methods=['GET', 'POST'])
+@login_required
 def index():
     return render_template('productIndex.html',title =u'首页')
 

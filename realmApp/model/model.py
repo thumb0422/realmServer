@@ -182,6 +182,9 @@ class TMAdminUser(UserMixin,Base):
         from werkzeug.security import check_password_hash
         return check_password_hash(self.userPwd, password)
 
+    def is_active(self):
+        return True
+
     def is_authenticated(self):
         return True
 
