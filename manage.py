@@ -1,11 +1,8 @@
 # -*- coding=utf-8 -*-
-from realmApp import create_app, db
-# from realmApp.model.orderModel import OrderMain,OrderDetail
-# from realmApp.model.userModel import User,Group
-
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 from flask_bootstrap import Bootstrap
+from realmApp import create_app, db
 
 app = create_app('mysql')
 manager = Manager(app)
