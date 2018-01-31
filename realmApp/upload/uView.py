@@ -19,6 +19,7 @@ def index():
 
 '''产品 信息展示'''
 @upload.route('/infos',methods=['GET', 'POST'])
+@login_required
 def infos():
     list = []
     # productCode = request.form['productId']
@@ -29,6 +30,7 @@ def infos():
 
 '''TM_Product 产品信息 表数据维护'''
 @upload.route('/infoAdd',methods=['GET', 'POST'])
+@login_required
 def infoAdd():
     name = None
     form = ProductInfoForm()
@@ -77,6 +79,7 @@ def infoAdd():
 
 '''TM_ProductType 产品类型 表数据维护'''
 @upload.route('/typeAdd',methods=['GET', 'POST'])
+@login_required
 def typeAdd():
     name = None
     form = ProductTypeForm()

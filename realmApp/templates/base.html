@@ -15,6 +15,16 @@
     {% block html_head %}  {% endblock %}
 </head>
 <body>
+<div>
+    realmServer:
+    <a href="{{ url_for('upload.index') }}">Home</a>
+    {% if current_user.is_anonymous %}
+        <a href="{{ url_for('/admin.login') }}">Login</a>
+    {% else %}
+        <a href="{{ url_for('/admin.logout') }}">Logout</a>
+    {% endif %}
+</div>
+
 <div id="content">
     {% block content %}{% endblock %}
 </div>

@@ -9,27 +9,28 @@ from .form import LoginForm, RegistrationForm
 from ..model.model import TMAdminUser
 
 
-@admin.route('/')
-@admin.route('/index')
-@login_required
-def index():
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template('userAdmin/index.html', title='Home', posts=posts)
+# @admin.route('/')
+# @admin.route('/index')
+# @login_required
+# def index():
+#     posts = [
+#         {
+#             'author': {'username': 'John'},
+#             'body': 'Beautiful day in Portland!'
+#         },
+#         {
+#             'author': {'username': 'Susan'},
+#             'body': 'The Avengers movie was so cool!'
+#         }
+#     ]
+#     return render_template('userAdmin/index.html', title='Home', posts=posts)
 
 
 @admin.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('/admin.index'))
+        # return redirect(url_for('/admin.index'))
+        return redirect(url_for('upload.index'))
     form = LoginForm()
     if form.validate_on_submit():
         user = UserAdminAction.queryUserAdmin(userName=form.username.data)
@@ -39,7 +40,8 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('/admin.index')
+            # next_page = url_for('/admin.index')
+            next_page = url_for('upload.index')
         return redirect(next_page)
     return render_template('userAdmin/login.html', title='Sign In', form=form)
 
@@ -47,13 +49,15 @@ def login():
 @admin.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('/admin.index'))
+    # return redirect(url_for('/admin.index'))
+    return redirect(url_for('upload.index'))
 
 
 @admin.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('/admin.index'))
+        # return redirect(url_for('/admin.index'))
+        return redirect(url_for('upload.index'))
     form = RegistrationForm()
     if form.validate_on_submit():
         adminUser = TMAdminUser()
