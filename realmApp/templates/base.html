@@ -15,10 +15,11 @@
     realmServer:
     <a href="{{ url_for('upload.index') }}">Home</a>
     {% if current_user.is_anonymous %}
-        <a href="{{ url_for('/admin.login') }}">Login</a>
-    {% else %}
-        <a href="{{ url_for('/admin.logout') }}">Logout</a>
+        <a href="{{ url_for('/admin.login') }}">登录</a>
+    {% elif current_user.is_authenticated %}
+        <a href="{{ url_for('/admin.logout') }}">退出</a>
     {% endif %}
+    <a href="{{ url_for('/admin.logout') }}">退出</a>
 </div>
 
 <div id="content">

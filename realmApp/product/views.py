@@ -1,10 +1,8 @@
 # -*- coding=utf-8 -*-
-from flask import jsonify,request,make_response,abort
+from flask import request
+
+from realmApp.upload.action import *
 from . import product
-from ..model.model import *
-from ..utility.Response import *
-from ..utility import *
-from ..model.productAction import *
 
 
 @product.route('/')

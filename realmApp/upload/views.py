@@ -1,16 +1,14 @@
 # -*- coding=utf-8 -*-
-from flask import jsonify,request,make_response,abort,render_template,send_from_directory,flash,redirect,url_for
-from . import upload
-from ..model.model import *
-from ..utility.Response import *
-from ..utility import *
-from ..model.productAction import *
-from werkzeug.utils import secure_filename
-from flask import Flask,render_template,jsonify,request
-import time
 import os
-import base64
+import time
 import uuid
+
+from flask import render_template, request
+from flask import send_from_directory, flash, redirect, url_for
+from werkzeug.utils import secure_filename
+
+from realmApp.upload.action import *
+from . import upload
 
 UPLOAD_FOLDER = 'image'
 basedir = os.path.abspath(os.path.dirname(__file__))

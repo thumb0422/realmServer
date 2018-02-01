@@ -24,3 +24,24 @@ class ProductInfoForm(FlaskForm):
     costPrice   = FloatField(u'成本价格', validators=[DataRequired(u'必须为数字类型')])
     salePrice   = FloatField(u'销售价格',validators=[DataRequired(u'必须为数字类型')])
     submit = SubmitField(u'提交')
+
+
+class ProjectForm(FlaskForm):
+    code = StringField(u'项目代码', validators=[DataRequired(''),Length(min=3,max=3,message=u'必须等于3字符！')],render_kw={"placeholder":'001'})
+    name = StringField(u'项目名称', validators=[DataRequired(''),Length(min=4,max=200,message=u'必须介于4-200字符！')])
+    submit = SubmitField(u'提交')
+
+class StyleForm(FlaskForm):
+    code = StringField(u'款式代码', validators=[DataRequired(''),Length(min=3,max=3,message=u'必须等于3字符！')],render_kw={"placeholder":'001'})
+    name = StringField(u'款式名称', validators=[DataRequired(''),Length(min=4,max=200,message=u'必须介于4-200字符！')])
+    submit = SubmitField(u'提交')
+
+class ModelForm(FlaskForm):
+    code = StringField(u'型号代码', validators=[DataRequired(''),Length(min=3,max=3,message=u'必须等于3字符！')],render_kw={"placeholder":'001'})
+    name = StringField(u'型号名称', validators=[DataRequired(''),Length(min=4,max=200,message=u'必须介于4-200字符！')])
+    submit = SubmitField(u'提交')
+
+class LevelForm(FlaskForm):
+    code = StringField(u'层次代码', validators=[DataRequired(''),Length(min=3,max=3,message=u'必须等于3字符！')],render_kw={"placeholder":'001'})
+    name = StringField(u'层次名称', validators=[DataRequired(''),Length(min=4,max=200,message=u'必须介于4-200字符！')])
+    submit = SubmitField(u'提交')

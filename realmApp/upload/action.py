@@ -1,10 +1,10 @@
 # coding: utf-8
 from sqlalchemy.ext.declarative import DeclarativeMeta
-from ..model import *
-from ..model.model import *
-from ..utility import *
-from ..utility.Response import *
-from ..utility.alchemyEncoder import *
+from realmApp.model import *
+from realmApp.model.model import *
+from realmApp.utility import *
+from realmApp.utility.Response import *
+from realmApp.utility.alchemyEncoder import *
 
 class ProductView:
 
@@ -138,6 +138,63 @@ class ProductView:
         for productImgInfo in productImgInfos:
             session.delete(productImgInfo)
         session.add(productLinkInfo)
+        try:
+            session.flush()
+            session.commit()
+            return True
+        except:
+            session.rollback()
+            return False
+        finally:
+            session.close()
+
+
+    @classmethod
+    def saveProject(cls,project):
+        session = Session()
+        session.add(project)
+        try:
+            session.flush()
+            session.commit()
+            return True
+        except:
+            session.rollback()
+            return False
+        finally:
+            session.close()
+
+    @classmethod
+    def saveModel(cls,model):
+        session = Session()
+        session.add(model)
+        try:
+            session.flush()
+            session.commit()
+            return True
+        except:
+            session.rollback()
+            return False
+        finally:
+            session.close()
+
+    @classmethod
+    def saveStyle(cls,style):
+        session = Session()
+        session.add(style)
+        try:
+            session.flush()
+            session.commit()
+            return True
+        except:
+            session.rollback()
+            return False
+        finally:
+            session.close()
+
+    @classmethod
+    def saveLevel(cls,level):
+        session = Session()
+        session.add(level)
         try:
             session.flush()
             session.commit()

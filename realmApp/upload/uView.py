@@ -1,9 +1,10 @@
 # -*- coding=utf-8 -*-
-from flask import render_template,flash,url_for,redirect,abort
+from flask import render_template, flash
 from flask_login import login_required
+
+from realmApp.upload.action import *
+from .form import *
 from ..upload import *
-from .ProductForm import *
-from ..model.productAction import *
 
 UPLOAD_FOLDER = 'image'
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -53,7 +54,6 @@ def infoAdd():
         from werkzeug.utils import secure_filename
         import time
         import os
-        import base64
         import uuid
 
         f = productImg
@@ -110,3 +110,100 @@ def typeAdd():
             message = '提交失败'
         flash(message)
     return render_template('productType.html', form=form,title=u'产品类型维护')
+
+
+'''TM_Project 产品类型项目 表数据维护'''
+@upload.route('/project',methods=['GET', 'POST'])
+@login_required
+def project():
+    name = None
+    form = ProjectForm()
+    # 如果提交的数据验证通过，则返回True
+    if form.validate_on_submit():
+        code = form.code.data
+        form.code.data = ''
+        name = form.name.data
+        form.name.data = ''
+        project = TMProject()
+        project.projectId = code
+        project.projectName = name
+        project.isValid = 'Y'
+        '''save Data'''
+        if ProductView.saveProject(project):
+            message = '提交成功'
+        else:
+            message = '提交失败'
+        flash(message)
+    return render_template('project.html', form=form,title=u'项目维护')
+
+'''TM_Style 产品类型款式 表数据维护'''
+@upload.route('/style',methods=['GET', 'POST'])
+@login_required
+def style():
+    name = None
+    form = StyleForm()
+    # 如果提交的数据验证通过，则返回True
+    if form.validate_on_submit():
+        code = form.code.data
+        form.code.data = ''
+        name = form.name.data
+        form.name.data = ''
+        style = TMStyle()
+        style.styleId = code
+        style.styleName = name
+        style.isValid = 'Y'
+        '''save Data'''
+        if ProductView.saveStyle(style):
+            message = '提交成功'
+        else:
+            message = '提交失败'
+        flash(message)
+    return render_template('style.html', form=form,title=u'款式维护')
+
+'''TM_Project 产品类型型号 表数据维护'''
+@upload.route('/model',methods=['GET', 'POST'])
+@login_required
+def model():
+    name = None
+    form = ModelForm()
+    # 如果提交的数据验证通过，则返回True
+    if form.validate_on_submit():
+        code = form.code.data
+        form.code.data = ''
+        name = form.name.data
+        form.name.data = ''
+        model = TMModel()
+        model.modelId = code
+        model.modelName = name
+        model.isValid = 'Y'
+        '''save Data'''
+        if ProductView.saveModel(model):
+            message = '提交成功'
+        else:
+            message = '提交失败'
+        flash(message)
+    return render_template('model.html', form=form,title=u'型号维护')
+
+'''TM_Project 产品类型层次 表数据维护'''
+@upload.route('/level',methods=['GET', 'POST'])
+@login_required
+def level():
+    name = None
+    form = LevelForm()
+    # 如果提交的数据验证通过，则返回True
+    if form.validate_on_submit():
+        code = form.code.data
+        form.code.data = ''
+        name = form.name.data
+        form.name.data = ''
+        level = TMLevel()
+        level.levelId = code
+        level.levelName = name
+        level.isValid = 'Y'
+        '''save Data'''
+        if ProductView.saveLevel(level):
+            message = '提交成功'
+        else:
+            message = '提交失败'
+        flash(message)
+    return render_template('level.html', form=form,title=u'层次维护')
