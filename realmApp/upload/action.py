@@ -204,3 +204,20 @@ class ProductView:
             return False
         finally:
             session.close()
+
+    @classmethod
+    def queryMaxId(cls):
+        session = Session()
+        sqlText = '''SELECT max(styleId) FROM TM_Style  WHERE 1=1 '''
+        res = session.execute(text(sqlText)).fetchall()
+        if res.__len__()>0:
+            result = int(res[0][0])
+        else:
+            result = 0
+        result += 1
+        result = str(result)
+        session.close()
+        result = result.zfill(3)
+        # str.rjust(8,'&')
+        # str.ljust(8,'%')
+        return result

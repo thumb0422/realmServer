@@ -4,6 +4,7 @@ from wtforms import StringField, SubmitField,SelectField,FloatField,PasswordFiel
 from wtforms.validators import Required,DataRequired,Length
 from flask_wtf.file import FileField,FileRequired,FileAllowed
 from ..model.staticAction import *
+from .action import ProductView
 import os
 
 class ProductTypeForm(FlaskForm):
@@ -27,7 +28,7 @@ class ProductInfoForm(FlaskForm):
 
 
 class ProjectForm(FlaskForm):
-    code = StringField(u'项目代码', validators=[DataRequired(''),Length(min=3,max=3,message=u'必须等于3字符！')],render_kw={"placeholder":'001'})
+    code = StringField(u'项目代码', validators=[DataRequired(''),Length(min=3,max=3,message=u'必须等于3字符！')],render_kw={"placeholder":ProductView.queryMaxId()})
     name = StringField(u'项目名称', validators=[DataRequired(''),Length(min=4,max=200,message=u'必须介于4-200字符！')])
     submit = SubmitField(u'提交')
 
