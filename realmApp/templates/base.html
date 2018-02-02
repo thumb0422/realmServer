@@ -23,13 +23,18 @@
     <a href="{{ url_for('/admin.logout') }}">退出</a>
 </div>
 
-<div id="content">
-    {% block content %}{% endblock %}
+<div id="basecontent">
+    {% block basecontent %}{% endblock %}
 </div>
 
-<div id="footer">
-    {% block footer %}
-        &copy; Copyright 2018 by <a href="#">realmServer</a>.
-    {% endblock %}
-</div>
+<div id="footer" class="container">
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="navbar-inner navbar-content-center">
+            <p class="text-muted credit" style="padding: 10px;">
+                {% block footer %}
+                    &copy; Copyright 2018 by <a href="#">realmServer</a>.
+                {% endblock %}
+            </p>
+        </div>
+    </nav>
 </body>
