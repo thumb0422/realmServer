@@ -18,6 +18,13 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+-- Create DataBase
+-- ----------------------------
+DROP DATABASE IF  EXISTS Realm;
+Create DATABASE Realm;
+USE Realm;
+
+-- ----------------------------
 -- Table structure for TM_Address
 -- ----------------------------
 DROP TABLE IF EXISTS `TM_Address`;
