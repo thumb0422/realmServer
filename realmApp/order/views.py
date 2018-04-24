@@ -12,7 +12,11 @@ def index():
 @order.route('/F2001',methods = ['POST'])
 def getOrder():
     if request.json is not None:
-        jsonDic = converJsonToDic(request.json)
+        requestBody = request.json
+        if isinstance(requestBody,str):
+            jsonDic = eval(requestBody)
+        else:
+            jsonDic = converJsonToDic(requestBody)
         if 'orderId' in jsonDic.keys():
             orderId = jsonDic['orderId'] if jsonDic['orderId'] is not None else ""
         else:
