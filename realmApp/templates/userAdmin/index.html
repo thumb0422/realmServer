@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+    <div class="page-header">
+        <div class="container">
+            <h1>{{ title }}</h1>
+        </div>
+    </div>
+    <div class="container">
+        <table class="table table-striped">
+            <tbody>
+            {% for info in posts %}
+                <tr>
+                    <td>{{ info['author'] }}</td>
+                    <td>{{ info['body'] }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

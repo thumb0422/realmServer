@@ -9,21 +9,21 @@ from .form import LoginForm, RegistrationForm
 from ..model.model import TMAdminUser
 
 
-# @admin.route('/')
-# @admin.route('/index')
-# @login_required
-# def index():
-#     posts = [
-#         {
-#             'author': {'username': 'John'},
-#             'body': 'Beautiful day in Portland!'
-#         },
-#         {
-#             'author': {'username': 'Susan'},
-#             'body': 'The Avengers movie was so cool!'
-#         }
-#     ]
-#     return render_template('userAdmin/index.html', title='Home', posts=posts)
+@admin.route('/')
+@admin.route('/index')
+@login_required
+def index():
+    posts = [
+        {
+            'author': {'username': 'John'},
+            'body': 'Beautiful day in Portland!'
+        },
+        {
+            'author': {'username': 'Susan'},
+            'body': 'The Avengers movie was so cool!'
+        }
+    ]
+    return render_template('userAdmin/index.html', title='Home', posts=posts)
 
 
 @admin.route('/login', methods=['GET', 'POST'])
